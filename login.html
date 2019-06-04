@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="IT Blog Post">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+    <!-- build:css styles/main.css -->
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/css/font-awesome.min.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+</head>
+
+<body>
+    <div class="container shadow p-3 my-5 bg-white rounded">
+        <!--[if IE]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div class="my-4 text-center">
+            <h1>WELCOME !</h1>
+            <hr />
+        </div>
+        <div class="row my-5">
+            <div class="col-lg-10 offset-lg-1">
+                <div class="card">
+                    <div class="card-header">
+                        Login
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-warning d-none" id="alert-message">
+                        </div>
+                        <!-- LOGIN FORM -->
+                        <form novalidate id="loginForm" method="POST">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="text" name="email" class="form-control" id="email"
+                                            aria-describedby="emailHelp" placeholder="Enter email"
+                                            data-val="true"
+                                            data-val-required="Email is required"
+                                            data-val-email="Email is invalid"/>
+                                        <small id="emailHelp" class="form-text text-muted" data-valmsg-for="email"
+                                            data-valmsg-replace="true"></small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="password">Password</label>
+                                        <input type="password" class="form-control" name="password" id="password"
+                                            placeholder="Enter password" data-val="true"
+                                            data-val-required="Password is required"/>
+                                            <small id="passwordHelp" class="form-text text-muted" data-valmsg-for="password"
+                                                data-valmsg-replace="true"></small>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col custom-control custom-checkbox ml-4 pl-n1">
+                                            <input type="checkbox" class="custom-control-input" id="remember">
+                                            <label class="custom-control-label" for="remember">Remember me?</label>
+                                        </div>
+                                        <div class="col text-right">
+                                            <button type="submit" class="btn btn-primary">Login</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- LOGIN FORM -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END FOOTER -->
+    <!-- build:js scripts/vendor.js -->
+    <script type="text/javascript" src="scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="scripts/jquery.validate.min.js"></script>
+    <script type="text/javascript"
+        src="scripts/jquery.validate.unobtrusive.min.js"></script>
+    <!-- endbuild -->
+    <!-- build:js scripts/main.js -->
+    <script src="scripts/globals.js"></script>
+    <script>
+        const __config__ = new DefaultConfig();
+    </script>
+    <script src="scripts/lib/NavigationService.js"></script>
+    <script src="scripts/lib/Repository.js"></script>
+    <script src="scripts/lib/UserService.js"></script>
+    <script src="scripts/lib/PermissionService.js"></script>
+    <script src="scripts/lib/AuthService.js"></script>
+    <script src="scripts/main.js"></script>
+    <script src="scripts/pages/login.js"></script>
+    <!-- endbuild -->
+</body>
+
+</html>
