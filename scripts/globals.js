@@ -1,6 +1,6 @@
 'use strict';
-const LOGIN_PAGE_URL = '/login.html';
-const DENIED_PAGE_URL = '/access-denied.html';
+const LOGIN_PAGE_URL = 'login.html';
+const DENIED_PAGE_URL = 'access-denied.html';
 const RESOURCES = {
     ROLE: {
         id: 5,
