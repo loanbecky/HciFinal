@@ -1,5 +1,5 @@
 'use strict';
-const BASE_URL = "";
+const BASE_URL = "/HciFinal/";
 const LOGIN_PAGE_URL = `${BASE_URL}/login.html`;
 const DENIED_PAGE_URL = `${BASE_URL}/access-denied.html`;
 
