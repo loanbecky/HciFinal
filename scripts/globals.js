@@ -1,5 +1,4 @@
 'use strict';
-
 const RESOURCES = {
     ROLE: {
         id: 5,

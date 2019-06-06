@@ -1,7 +1,7 @@
 'use strict';
 
 (function ($, authService, navigationService, permissionService, config, userService) {
-    /*if (!config) navigationService.toDenied();
+    if (!config) navigationService.toDenied();
 
     //authenticate
     if (config.requireLogin() && !authService.isSignedIn()) {
@@ -11,7 +11,7 @@
     const requiredRole = config.requireRole();
     if (requiredRole && !permissionService.inRole(requiredRole)) {
         navigationService.toLogin();
-    }*/
+    }
     $(function () {
         var currentUser = userService.getCurrentUser();
         if(currentUser){
