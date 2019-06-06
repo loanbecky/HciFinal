@@ -6,31 +6,47 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>IT Blog</title>
+  <base href="/HciFinal/">
   <!-- Place favicon.ico in the root directory -->
-    <!-- build:css styles/main.css -->
-    <link rel="stylesheet" href="styles/bootstrap.min.css">
-    <link rel="stylesheet" href="styles/css/font-awesome.min.css">
-    <link rel="stylesheet" href="styles/main.css">
-    <!-- endbuild -->
+  <!-- build:css styles/main.css -->
+  <link rel="stylesheet" href="styles/bootstrap.min.css">
+  <link rel="stylesheet" href="styles/font-awesome.min.css">
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild -->
 </head>
 
 <body>
   <!-- NAVBAR -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">IT BLOG</a>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm p-3 bg-white rounded">
+    <a class="navbar-brand" href="index.html">IT BLOG</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link btn btn-light" href="#"><i class="fa fa-home"></i></a>
-        </li>
+        <!-- <li class="nav-item active">
+          <a class="nav-link" href="index.html"><i class="fa fa-home"></i></a>
+        </li> -->
         <li class="nav-item">
           <a class="nav-link" href="posts.html">Post</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarCategories" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Categories
+          </a>
+          <div class="dropdown-menu text-break" aria-labelledby="navbarCategories" id="category-list"
+            data-template="#categoryTemplate">
+            <!-- data -->
+          </div>
+          <!-- templates -->
+          <script id="categoryTemplate" type="text/x-jQuery-tmpl">
+            <a class="dropdown-item text-break" href="postInCategory.html?id=${id}">${name}</a>
+          </script>
+          <!-- templates -->
+        </li>
+        <!-- <li class="nav-item">
           <a class="nav-link dropdown-toggle" href="postInCategory.html" data-toggle="dropdown">Categories</a>
           <div class="bg-dark mx-md-5 text-white p-3 w-50 position-absolute dropdown-menu" style="opacity: 0.95">
             <div class="row">
@@ -90,22 +106,42 @@
               </div>
             </div>
           </div>
-        </li>
+        </li> -->
     </div>
+
+    <!-- <ul class="navbar-nav">
+      <li>
+        <span>
+          <img id="currentUserImage" src="images/currentuser.png" class="img-fluid" style="height: 30px" />
+        </span>
+      </li>
+      <li>
+        <a class="nav-link" href="#" id="currentUserEmail"></a>
+      </li>
+      <li>
+        <a class="nav-link" href="#" id="logout">Logout</a>
+      </li>
+    </ul> -->
   </nav>
   <!-- END NAVBAR -->
   <!-- MAIN -->
-  <div class="container-fluid mb-4">
+  <div class="container-fluid shadow-sm p-3 bg-white rounded" style="min-height:600px;">
     <div class="my-4">
       <h1>Welcome to IT Blog</h1>
     </div>
     <div class="row">
       <!-- LEFT -->
       <div class="col-md-9">
-        <div class="row">
-          <div class="col-md-6 my-3">
+        <div class="alert alert-info alert-dismissible d-none text-break" id="alertMessage" role="alert">
+          <span class="content"></span>
+          <button type="button" class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="row" id="post-list" data-template="#postTemplate">
+          <!-- <div class="col-md-6 my-3">
             <div class="card bg-dark text-white">
-              <img src="images/developer1.png" class="card-img" alt="..." style="height:280px">
+              <img src="/images/developer1.png" class="card-img" alt="..." style="height:280px">
               <div class="card-img-overlay bg-dark py-2" style="top:inherit;opacity:0.7">
                 <h5 class="card-title">Card title</h5>
                 <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
@@ -114,115 +150,110 @@
                 <a class="stretched-link" href="postDetail.html"></a>
               </div>
             </div>
-          </div>
-          <div class="col-md-6 my-3">
-            <div class="card bg-dark text-white">
-              <img src="images/developer2.jpg" class="card-img" alt="..." style="height:280px">
-              <div class="card-img-overlay bg-dark py-2" style="top:inherit;opacity:0.7">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-                  content. This content is a little bit longer.</p>
-                <p class="card-text">Last updated 3 mins ago</p>
-                <a class="stretched-link" href="postDetail.html"></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 my-3">
-            <div class="card bg-dark text-white">
-              <img src="images/developer3.png" class="card-img" alt="..." style="height:280px">
-              <div class="card-img-overlay bg-dark py-2" style="top:inherit;opacity:0.7">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-                  content. This content is a little bit longer.</p>
-                <p class="card-text">Last updated 3 mins ago</p>
-                <a class="stretched-link" href="postDetail.html"></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 my-3">
-            <div class="card bg-dark text-white">
-              <img src="images/developer4.jpg" class="card-img img-fluid" alt="..." style="height:280px">
-              <div class="card-img-overlay bg-dark py-2" style="top:inherit;opacity:0.7">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-                  content. This content is a little bit longer.</p>
-                <p class="card-text">Last updated 3 mins ago</p>
-                <a class="stretched-link" href="postDetail.html"></a>
-              </div>
-            </div>
-          </div>
+          </div> -->
         </div>
       </div>
+      <!-- templates -->
+      <script id="postTemplate" type="text/x-jQuery-tmpl">
+                <div class="col-md-6 my-3">
+                    <div class="card bg-dark text-white">
+                        <a href="postDetail.html?id=${id}">
+                      <img src="${image}" class="card-img" alt="${title}" style="height:280px">
+                        </a>
+                      <div class="card-img-overlay bg-dark py-2" style="top:inherit;opacity:0.7">
+                        <h5 class="card-title">
+                            <a href="postDetail.html?id=${id}" class="stretched-link text-white">${title}</a></h5>
+                        <p class="card-text">${createdAt}</p>
+                        <a class="stretched-link" href="postDetail.html?id=${id}"></a>
+                      </div>
+                    </div>
+          </script>
+      <!-- templates -->
       <!-- END LEFT -->
+
       <!-- RIGHT -->
       <div class="col-md-3">
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">
-            <h2 class="h5">RECENT POSTS</h5>
+        <!-- templates -->
+        <script id="recentPostTemplate" type="text/x-jQuery-tmpl">
+            <li class="list-group-item text-break">
+              <a href="postDetail.html?id=${id}">
+                ${title}
+              </a>
+            </li>
+            </script>
+        <!-- templates -->
+        <ul class="list-group list-group-flush" id="recent-post-list" data-template="#recentPostTemplate">
+          <li class="list-group-item" style="border-top:none;">
+            <h2 class="h5"><a href="recentPosts.html" class="text-decoration-none text-dark">RECENT POSTS</a></h5>
           </li>
-          <li class="list-group-item">
-            <a href="recentPosts.html">
-              Benifits of using Visual Studio 2019
-            </a>
-          </li>
-          <li class="list-group-item">
-            <a href="recentPosts.html">
-              Benifits of using Visual Studio 2019
-            </a>
-          </li>
-          <li class="list-group-item">
-            <a href="recentPosts.html">
-              Benifits of using Visual Studio 2019
-            </a>
-          </li>
-          <li class="list-group-item">
-            <a href="recentPosts.html">
-              Benifits of using Visual Studio 2019
-            </a>
-          </li>
-          <li class="list-group-item">
-            <h2 class="h5">POSTS FILTED BY</h2>
-          </li>
-          <li class="list-group-item">
-            <a href="recentPosts.html">
-              2019
-            </a>
-          </li>
-          <li class="list-group-item">
-            <a href="recentPosts.html">
-              2019
-            </a></li>
-          <li class="list-group-item">
-            <a href="recentPosts.html">
-              2019
-            </a></li>
+          <!-- <li class="list-group-item">
+              <a href="recentPosts.html">
+                Benifits of using Visual Studio 2019
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="recentPosts.html">
+                Benifits of using Visual Studio 2019
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="recentPosts.html">
+                Benifits of using Visual Studio 2019
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="recentPosts.html">
+                Benifits of using Visual Studio 2019
+              </a>
+            </li> -->
         </ul>
+        <!-- <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <h2 class="h5">POSTS FILTED BY</h2>
+            </li>
+            <li class="list-group-item">
+              <a href="recentPosts.html">
+                2019
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="recentPosts.html">
+                2019
+              </a></li>
+            <li class="list-group-item">
+              <a href="recentPosts.html">
+                2019
+              </a></li>
+          </ul>
+        </div> -->
+        <!-- END RIGHT -->
       </div>
-      <!-- END RIGHT -->
     </div>
   </div>
   <!-- MAIN -->
   <!-- FOOTER -->
-  <hr />
-  <footer class="p-3 my-3">
+  <footer class="p-3 shadow-sm bg-white rounded mt-1">
     &copy; 2019
   </footer>
   <!-- END FOOTER -->
-  <script src="scripts/globals.js"></script>
-  <script>
-    const __config__ = new AuthorizeConfig();
-  </script>
   <!-- build:js scripts/vendor.js -->
   <script type="text/javascript" src="scripts/jquery.min.js"></script>
   <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
+  <script type="text/javascript" src="scripts/moment.js"></script>
   <!-- endbuild -->
-  <!-- build:js scripts/main.js -->
+  <script src="scripts/globals.js"></script>
+  <script>
+    const __config__ = new DefaultConfig();
+  </script>
+  <script src="scripts/lib/jQuery.tmpl.js"></script>
   <script src="scripts/lib/NavigationService.js"></script>
+  <script src="scripts/lib/CommonService.js"></script>
   <script src="scripts/lib/Repository.js"></script>
   <script src="scripts/lib/UserService.js"></script>
   <script src="scripts/lib/PermissionService.js"></script>
   <script src="scripts/lib/AuthService.js"></script>
   <script src="scripts/main.js"></script>
+  <script src="scripts/pages/index.js"></script>
   <!-- endbuild -->
 </body>
 

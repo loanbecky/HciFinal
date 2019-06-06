@@ -6,16 +6,17 @@
     <meta name="description" content="IT Blog Post">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>IT Blogs - Category</title>
+    <base href="/HciFinal/admin/">
     <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="../styles/bootstrap.min.css">
-    <link rel="stylesheet" href="../styles/font-awesome.min.css">
+    <link rel="stylesheet" href="../styles/css/font-awesome.min.css">
     <link rel="stylesheet" href="../styles/main.css">
     <!-- endbuild -->
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
-        <a class="navbar-brand" href="#">IT BLOGS</a>
+        <a class="navbar-brand" href="index.html">IT BLOGS</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -27,12 +28,15 @@
                     <a class="nav-link" href="post.html">Post</span></a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="user.html">User</span></a>
+                </li>
+                <li class="nav-item active">
                     <a class="nav-link" href="category.html">Category</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="role.html">Role</span></a>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="permission.html">Permission</a>
                 </li>
             </ul>
@@ -59,7 +63,7 @@
         <!-- BREADCRUMB -->
         <nav aria-label="breadcrumb" class="float-right">
             <ol class="breadcrumb bg-white">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Category</li>
             </ol>
         </nav>
@@ -67,7 +71,7 @@
             <h1 class="h4">CATEGORY</h1>
             <hr />
         </div>
-        <div class="alert alert-success alert-dismissible d-none" id="alertMessage" role="alert">
+        <div class="alert alert-success alert-dismissible d-none text-break" id="alertMessage" role="alert">
             <span class="content"></span>
             <button type="button" class="close" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -115,13 +119,19 @@
                         <div class="modal-body">
                             <div class="alert alert-warning d-none" id="addFormAlertMessage"></div>
                             <div class="form-group row">
-                                <label for="name" class="col-sm-5 col-form-label">Category Name (*):</label>
+                                <label for="add-name" class="col-sm-5 col-form-label">Category Name (*):</label>
                                 <div class="col-sm-7">
-                                    <input type="text" name="name" class="form-control" data-val="true"
+                                    <input type="text" id="add-name" name="name" class="form-control" data-val="true"
                                         data-val-required="Name is required"
                                         data-val-maxlength="Name's max length is 100" data-val-maxlength-max="100" />
-                                    <small class="form-text text-muted" data-valmsg-for="name"
+                                    <small class="form-text text-danger" data-valmsg-for="name"
                                         data-valmsg-replace="true"></small>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="add-order" class="col-sm-5 col-form-label">Display Order:</label>
+                                <div class="col-sm-7">
+                                    <input type="number" id="add-order" name="order" class="form-control" value="0"/>
                                 </div>
                             </div>
                         </div>
@@ -153,13 +163,19 @@
                         <div class="modal-body">
                             <div class="alert alert-warning d-none" id="editFormAlertMessage"></div>
                             <div class="form-group row">
-                                <label for="name" class="col-sm-5 col-form-label">Category Name (*):</label>
+                                <label for="edit-name" class="col-sm-5 col-form-label">Category Name (*):</label>
                                 <div class="col-sm-7">
-                                    <input type="text" name="name" class="form-control" data-val="true"
+                                    <input type="text" id="edit-name" name="name" class="form-control" data-val="true"
                                         data-val-required="Name is required"
                                         data-val-maxlength="Name's max length is 100" data-val-maxlength-max="100" />
-                                    <small class="form-text text-muted" data-valmsg-for="name"
+                                    <small class="form-text text-danger" data-valmsg-for="name"
                                         data-valmsg-replace="true"></small>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="edit-order" class="col-sm-5 col-form-label">Display Order:</label>
+                                <div class="col-sm-7">
+                                    <input type="number" id="edit-order" name="order" class="form-control" value="0"/>
                                 </div>
                             </div>
                         </div>
@@ -191,13 +207,13 @@
                 <!-- TOOLBAR -->
                 <!-- LIST -->
                 <div class="my-3">
-
                     <div class="table-responsive" id="category-list">
                         <table class="table table-stripped">
                             <thead>
                                 <tr>
                                     <th class="text-right">No.</th>
-                                    <th>Role Name</th>
+                                    <th>Category</th>
+                                    <th class="text-center">Display Order</th>
                                     <th>Created At</th>
                                     <th>Updated At</th>
                                     <th class="text-center">Action</th>
@@ -210,7 +226,7 @@
                     </div>
                     <!-- PAGER -->
                     <div class="w-25 mx-auto d-none" id="pager">
-                        <nav aria-label="...">
+                        <nav>
                             <ul class="pagination">
                             </ul>
                         </nav>
@@ -227,7 +243,10 @@
     <script id="categoryTemplate" type="text/x-jQuery-tmpl">
         <tr>
             <td class="text-right">${index}</td>
-            <td>${name}</td>
+            <td class="text-break" style="max-width:400px">
+                <a href="../postInCategory.html?id=${id}" target="_blank">${name}</a>
+            </td>
+            <td class="text-center">${order}</td>
             <td>${createdAt}</td>
             <td>${updatedAt}</td>
             <td class="text-center">
@@ -252,8 +271,8 @@
         const __config__ = new AdminForResourceActionConfig(ACTIONS.READ, RESOURCES.CATEGORY);
     </script>
     <script src="../scripts/lib/jQuery.tmpl.js"></script>
-    <script src="../scripts/lib/CommonService.js"></script>
     <script src="../scripts/lib/NavigationService.js"></script>
+    <script src="../scripts/lib/CommonService.js"></script>
     <script src="../scripts/lib/Repository.js"></script>
     <script src="../scripts/lib/UserService.js"></script>
     <script src="../scripts/lib/PermissionService.js"></script>

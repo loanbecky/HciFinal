@@ -5,7 +5,8 @@
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>IT Blog - The advantages of use smart phone</title>
+    <title>IT Blog - </title>
+    <base href="/HciFinal/">
     <!-- Place favicon.ico in the root directory -->
     <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="styles/bootstrap.min.css">
@@ -16,160 +17,128 @@
 
 <body>
     <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">IT BLOG</a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm p-3 bg-white rounded">
+        <a class="navbar-brand" href="index.html">IT BLOG</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link btn btn-light" href="#"><i class="fa fa-home"></i></a>
-                </li>
+                <!-- <li class="nav-item active">
+                    <a class="nav-link" href="index.html"><i class="fa fa-home"></i></a>
+                  </li> -->
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Post</a>
+                    <a class="nav-link" href="posts.html">Post</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Categories</a>
-                    <div class="bg-dark mx-md-5 text-white p-3 w-50 position-absolute dropdown-menu"
-                        style="opacity: 0.95">
-                        <div class="row">
-                            <div class="col-md-4 col-sm-6">
-                                <h5>Ticks & Tricks</h5>
-                                <hr />
-                                <ul class="nav flex-column">
-                                    <li class="nav-item">
-                                        <a class="nav-link text-light active" href="#">Apple</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-light" href="#">Samsung</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-light" href="#">Windows</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-light disabled" href="#" tabindex="-1"
-                                            aria-disabled="true">Macs</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-md-4 col-sm-6">
-                                <h5>Ticks & Tricks</h5>
-                                <hr />
-                                <ul class="nav flex-column">
-                                    <li class="nav-item">
-                                        <a class="nav-link text-light active" href="#">Apple</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-light" href="#">Samsung</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-light" href="#">Windows</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-light disabled" href="#" tabindex="-1"
-                                            aria-disabled="true">Macs</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-md-4 col-sm-6">
-                                <h5>Ticks & Tricks</h5>
-                                <hr />
-                                <ul class="nav flex-column">
-                                    <li class="nav-item">
-                                        <a class="nav-link text-light active" href="#">Apple</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-light" href="#">Samsung</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-light" href="#">Windows</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-light disabled" href="#" tabindex="-1"
-                                            aria-disabled="true">Macs</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                <li class="nav-item dropdown active">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarCategories" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Categories
+                    </a>
+                    <div class="dropdown-menu text-break" aria-labelledby="navbarCategories" id="category-list"
+                        data-template="#categoryTemplate">
+                        <!-- data -->
                     </div>
+                    <!-- templates -->
+                    <script id="categoryTemplate" type="text/x-jQuery-tmpl">
+                      <a class="dropdown-item text-break current-category-selected" data-id="${id}" href="postInCategory.html?id=${id}">${name}</a>
+                    </script>
+                    <!-- templates -->
                 </li>
         </div>
     </nav>
     <!-- END NAVBAR -->
     <!-- MAIN -->
-    <div class="container-fluid mb-4">
+    <div class="container-fluid shadow-sm p-3 bg-white rounded" style="min-height:600px;">
         <!-- <div class="my-4">
             <h1>Welcome to IT Blog</h1>
         </div> -->
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-light">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Posts</a></li>
-                <li class="breadcrumb-item active" aria-current="page">The advantages of use smart phone</li>
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="posts.html">Posts</a></li>
+                <li class="breadcrumb-item active current-post-title" aria-current="page"></li>
             </ol>
         </nav>
         <div class="row">
-            <!-- LEFT -->
-            <div class="col-12">
-                <h1>The advantages of use smart phone</h1>
-                <h5><a href="#">Ticks & Tricks</a></h5>
-                <p><i class="fa fa-clock-o"> 5 Dec 2019</i> by <strong>Administrator</strong> in <strong><a href="#">Posts</a></strong></p>
-                <div class="clearfix">
-                    <div class="media">
-                        <img src="images/developer3.png" class="mr-3 img-fluid" alt="..." style="max-height:400px;">
-                        <div class="media-body">
-                            <h5 class="mt-0">Media heading</h5>
-                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante
-                            sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.
-                            Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in
-                            faucibus.
-                        </div>
-                    </div>
-                </div>
-                <div class="row pt-3 mt-3">
-                    <div class="col-sm-3">
-                        <a href="#" class="btn btn-light btn-lg"><i class="fa fa-long-arrow-left"></i> PREVIOUS</a>
-                    </div>
-                    <div class="col-sm-6">
-                        <nav aria-label="..." class="w-25 mx-auto">
-                            <ul class="pagination">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item active" aria-current="page">
-                                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                    <div class="col-sm-3 text-right">
-                        <a href="#" class="btn btn-light btn-lg">NEXT <i class="fa fa-long-arrow-right"></i></a>
-                    </div>
-                </div>
+            <div class="col-12" id="post-detail" data-template="#postDetailTemplate">
+
             </div>
-            <!-- END LEFT -->
         </div>
     </div>
+    <!-- TEMPLATE -->
+    <script id="postDetailTemplate" type="text/x-jQuery-tmpl">
+    <div class="col-12">
+        <h1>${title}</h1>
+        <h5><a href="postInCategory.html?id=${category.id}">${category.name}</a></h5>
+        <p><i class="fa fa-clock-o"> ${createdAt}</i> by <strong>${creator}</strong></p>
+        <div class="clearfix">
+            <div class="media">
+                <div class="media-body">
+                        {{if image }}
+                        <img src="${image}" class="my-3 mr-3 img-fluid img-thumbnail float-left" alt="${title}" style="max-height:300px;"/>
+                        {{/if}}
+                        <div class="content"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row pt-3 mt-3">
+            <div class="col-sm-3">
+                {{if preId }}
+                    <a href="postDetail.html?id=${preId}" class="btn btn-light btn-lg"><i class="fa fa-long-arrow-left"></i> PREVIOUS</a>
+                {{/if}}
+            </div>
+            <div class="col-sm-6">
+                <!--<nav aria-label="..." class="w-25 mx-auto">
+                    <ul class="pagination">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item active" aria-current="page">
+                            <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>-->
+            </div>
+            <div class="col-sm-3 text-right">
+                {{if nextId }}
+                <a href="postDetail.html?id=${nextId}" class="btn btn-light btn-lg">NEXT <i class="fa fa-long-arrow-right"></i></a>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</script>
+    <!-- END TEAMPLATE -->
     <!-- MAIN -->
     <!-- FOOTER -->
-    <hr />
-    <footer class="p-3 my-3">
+    <footer class="p-3 shadow-sm bg-white rounded mt-1">
         &copy; 2019
     </footer>
     <!-- END FOOTER -->
     <!-- build:js scripts/vendor.js -->
     <script type="text/javascript" src="scripts/jquery.min.js"></script>
     <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="scripts/moment.js"></script>
     <!-- endbuild -->
-    <!-- build:js scripts/main.js -->
+    <script src="scripts/globals.js"></script>
+    <script>
+        const __config__ = new DefaultConfig();
+    </script>
+    <script src="scripts/lib/jQuery.tmpl.js"></script>
+    <script src="scripts/lib/NavigationService.js"></script>
+    <script src="scripts/lib/CommonService.js"></script>
+    <script src="scripts/lib/Repository.js"></script>
+    <script src="scripts/lib/UserService.js"></script>
+    <script src="scripts/lib/PermissionService.js"></script>
+    <script src="scripts/lib/AuthService.js"></script>
     <script src="scripts/main.js"></script>
+    <script src="scripts/pages/post-details.js"></script>
     <!-- endbuild -->
 </body>
 
