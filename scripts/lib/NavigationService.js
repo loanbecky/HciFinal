@@ -16,7 +16,7 @@ var navigationService = (function(){
         location = DENIED_PAGE_URL;
     };
     _this.toLocalUrl = function(url){
-        location = `${BASE_URL}${url}`;
+        location = `${url}`;
     };
     _this.page = function(){
         return `${BASE_URL}${location.pathname}`;
