@@ -139,7 +139,7 @@ var repository = (function () {
     //initial data
     if (!_this.getEntities(USER_ENTITY_NAME)) {
         const users = [
-            { id: 1, email: 'nguyentuandang7@gmail.com', password: '123456', createdOn: new Date(), updatedOn: new Date() },
+            { id: 1, email: 'loanbecky@gmail.com', password: '123456', createdOn: new Date(), updatedOn: new Date() },
             { id: 2, email: 'nguyenthingocdieu@gmail.com', password: '123456', createdOn: new Date(), updatedOn: new Date() },
             { id: 3, email: 'vuthingat@gmail.com', password: '123456', createdOn: new Date(), updatedOn: new Date() }
         ];
