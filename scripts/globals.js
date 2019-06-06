@@ -5,11 +5,11 @@ const RESOURCES = {
         names: ['Role']
     },
     POST: { id: 1, names: ['Blog Post'],
-        maxImageSize: 1, maxAttachSize: 2, //MB
+        maxImageSize: 1, maxAttachSize: 1, //MB
         adminPageSize: 5, userPageSize: 12, recentPageSize: 10,
         defaultImage: 'images/default-image.png'
     },
-    CATEGORY: { id: 2, names: ['Categories'], pageSize: 5, postPageSize: 3 },
+    CATEGORY: { id: 2, names: ['Categories'], pageSize: 5, postPageSize: 10 },
     USER: { id: 3, names: ['User'], pageSize: 5 },
     PERMISSION: { id: 4, names: ['Priviledge'] }
 };
