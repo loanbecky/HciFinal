@@ -7,7 +7,7 @@ var navigationService = (function(){
     var _this = {};
     
     _this.toHome = function(){
-        location = '/';
+        location = `${BASE_URL}/`;
     };
     _this.toLogin = function(){
         location = `${LOGIN_PAGE_URL}?returnUrl=${location.pathname}`;
