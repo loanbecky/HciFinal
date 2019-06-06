@@ -4,11 +4,14 @@ var repository = (function () {
     const _this = {};
     const _available = storageAvailable();
     const CATEGORY_ENTITY_NAME = 'itnewsblog.categories';
+    const POST_ENTITY_NAME = 'itnewsblog.posts';
     const USER_ENTITY_NAME = 'itnewsblog.users';
     const ROLE_ENTITY_NAME = 'itnewsblog.roles';
     const USERROLE_ENTITY_NAME = 'itnewsblog.userroles';
     const PERMISSION_ENTITY_NAME = 'itnewsblog.permissions';
     const ROLEPERMISSION_ENTITY_NAME = 'itnewsblog.rolepermissions';
+    const FILE_ENTITY_NAME = 'itnewsblog.file';
+    const IMAGE_ENTITY_NAME = 'itnewsblog.image';
 
     _this.keys = {
         user: USER_ENTITY_NAME,
@@ -16,9 +19,12 @@ var repository = (function () {
         permission: PERMISSION_ENTITY_NAME,
         userRole: USERROLE_ENTITY_NAME,
         rolePermission: ROLEPERMISSION_ENTITY_NAME,
-        category: CATEGORY_ENTITY_NAME
+        category: CATEGORY_ENTITY_NAME,
+        post: POST_ENTITY_NAME,
+        file: FILE_ENTITY_NAME,
+        image: IMAGE_ENTITY_NAME
     };
-
+    
     _this.getEntities = function (name) {
         if (_available) {
             let jsonValue = localStorage.getItem(name);
@@ -54,7 +60,7 @@ var repository = (function () {
             entity.id = newId;
             entities.push(entity);
             _this.saveEntities(name, entities);
-            return true;
+            return newId;
         }
         return false;
     };
@@ -95,7 +101,7 @@ var repository = (function () {
                         entity[prop] = updateData[prop];
                     }
                     _this.saveEntities(name, entities);
-                    return true;
+                    return entity;
                 }
             }
         }
@@ -131,9 +137,9 @@ var repository = (function () {
     //initial data
     if (!_this.getEntities(USER_ENTITY_NAME)) {
         const users = [
-            { id: 1, email: 'nguyentuandang7@gmail.com', password: '123456' },
-            { id: 2, email: 'nguyenthingocdieu@gmail.com', password: '123456' },
-            { id: 3, email: 'vuthingat@gmail.com', password: '123456' }
+            { id: 1, email: 'nguyentuandang7@gmail.com', password: '123456', createdOn: new Date(), updatedOn: new Date() },
+            { id: 2, email: 'nguyenthingocdieu@gmail.com', password: '123456', createdOn: new Date(), updatedOn: new Date() },
+            { id: 3, email: 'vuthingat@gmail.com', password: '123456', createdOn: new Date(), updatedOn: new Date() }
         ];
         _this.saveEntities(USER_ENTITY_NAME, users);
     }

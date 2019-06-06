@@ -1,14 +1,16 @@
 'use strict';
-const LOGIN_PAGE_URL = '/login.html';
-const DENIED_PAGE_URL = '/access-denied.html';
 const RESOURCES = {
     ROLE: {
         id: 5,
         names: ['Role']
     },
-    POST: { id: 1, names: ['Blog Post'] },
-    CATEGORY: { id: 2, names: ['Categories'] },
-    USER: { id: 3, names: ['User'] },
+    POST: { id: 1, names: ['Blog Post'],
+        maxImageSize: 1, maxAttachSize: 2, //MB
+        adminPageSize: 5, userPageSize: 12, recentPageSize: 10,
+        defaultImage: 'images/default-image.png'
+    },
+    CATEGORY: { id: 2, names: ['Categories'], pageSize: 5, postPageSize: 3 },
+    USER: { id: 3, names: ['User'], pageSize: 5 },
     PERMISSION: { id: 4, names: ['Priviledge'] }
 };
 const ACTIONS = {

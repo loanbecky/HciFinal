@@ -5,7 +5,6 @@
     const actions = per.canDoActions(RESOURCES.CATEGORY);
 
     const $categoryList = $('#category-list');
-    const $pager = $('#pager');
 
     const $addCategoryBtn = $('#addCategoryBtn');
     const $addCategoryBtnMessage = $('#addCategoryBtnMessage');
@@ -35,23 +34,25 @@
             $addCategoryBtnMessage.removeClass('d-none');
         } else {
             $addModal.on('show.bs.modal', function () {
-                $addNameInput.val('');
-                $addForm.find('[data-valmsg-for=name]').html('');
+                $addForm[0].reset();
+                $addForm.find('[data-valmsg-for]').html('');
                 $addFormAlertMessage.addClass('d-none');
             });
             $addForm.submit(function (e) {
                 e.preventDefault();
-                if (!$addForm.valid()) return;
                 var name = $addNameInput.val();
-                if (!name || !name.length) return;
+                var displayOrder = $addForm.find('[name=order]').val();
+
+                if (!$addForm.valid()) return;
                 if (!per.canDo(RESOURCES.CATEGORY, ACTIONS.CREATE)) return;
+
                 var category = rep.getEntityByName(rep.keys.category, name);
                 if (category == null) {
                     $addFormAlertMessage.text('');
                     $addFormAlertMessage.addClass('d-none');
 
                     $addFormSubmit.attr('disabled', true);
-                    rep.insertEntity(rep.keys.category, { name: name, createdOn: new Date(), updatedOn: new Date() });
+                    rep.insertEntity(rep.keys.category, { name: name, order: displayOrder, createdOn: new Date(), updatedOn: new Date() });
                     $addModal.modal('hide');
                     fillDataList(1);
 
@@ -85,6 +86,7 @@
                     $editFormAlertMessage.text('');
                     $editFormAlertMessage.addClass('d-none');
                     $editForm.find('[name=name]').val(category.name);
+                    $editForm.find('[name=order]').val(category.order || 0);
                 } else {
                     $editFormAlertMessage.text('Category is not found');
                     $editFormAlertMessage.removeClass('d-none');
@@ -93,11 +95,13 @@
             });
             $editForm.submit(function (e) {
                 e.preventDefault();
-                if (!$editForm.valid()) return;
                 var name = $editForm.find('[name=name]').val();
+                var displayOrder = $editForm.find('[name=order]').val();
                 var editId = $editModal.data('id');
-                if (!name || !name.length) return;
+
+                if (!$editForm.valid()) return;
                 if (!per.canDo(RESOURCES.CATEGORY, ACTIONS.UPDATE)) return;
+
                 var category = rep.getEntityById(rep.keys.category, editId);
                 if (category == null) {
                     $editFormAlertMessage.text('Category is not found');
@@ -109,7 +113,7 @@
                         $editFormAlertMessage.addClass('d-none');
 
                         $editFormSubmit.attr('disabled', true);
-                        var result = rep.updateEntity(rep.keys.category, category.id, { name: name, updatedOn: new Date() });
+                        var result = rep.updateEntity(rep.keys.category, category.id, { name: name, order: displayOrder, updatedOn: new Date() });
                         if (result) {
                             commonService.alertMessage(`Update category is successfully!`);
                         } else {
@@ -168,7 +172,7 @@
     });
 
     function fillDataList(page) {
-        const pageSize = 5;
+        const pageSize = RESOURCES.CATEGORY.pageSize;
         const pageIndex = page - 1;
 
         const $categoryContainer = $categoryList.find('tbody');
@@ -176,42 +180,29 @@
         $categoryContainer.html('');
 
         if (per.canDo(RESOURCES.CATEGORY, ACTIONS.READ)) {
-            const categories = rep.getEntities(rep.keys.category) || [];
+            let entities = rep.getEntities(rep.keys.category) || [];
+            const categories = entities.sort(sortCategory);
             if (categories && categories.length) {
-                const data = [];
-                let index = 1;
-                for(var i = pageSize * pageIndex; i < pageSize * page && i < categories.length; i++){
-                    data.push(getRenderItem(categories[i], index++));
-                }
-                $categoryTemplate.tmpl(data).appendTo($categoryContainer);
-                updatePager(page, categories.length, pageSize);
+                const pagedData = commonService.getPagedData(pageSize, pageIndex, categories);
+                const renderData = $.map(pagedData, (item, index) => getRenderItem(item, index + (pageIndex * pageSize)));
+                $categoryTemplate.tmpl(renderData).appendTo($categoryContainer);
+                commonService.updatePager(page, categories.length, pageSize);
             } else {
-                $categoryContainer.html(`<tr><td colspan="5"><div class="alert alert-info">Categories data is empty</div></td></tr>`);
+                $categoryContainer.html(`<tr><td colspan="6"><div class="alert alert-info">Categories data is empty</div></td></tr>`);
             }
         } else {
-            $categoryContainer.html(`<tr><td colspan="5"><div class="alert alert-info">You don't have read permission</div></td></tr>`);
+            $categoryContainer.html(`<tr><td colspan="6"><div class="alert alert-info">You don't have read permission</div></td></tr>`);
         }
     }
-    function updatePager(page, totalItems, pageSize){
-        const $pager = $('#pager');
-        const $pageItemContainer = $pager.find('.pagination');
-        const totalPage = Math.ceil(totalItems / pageSize);
-        if(totalPage <= 1){
-            $pageItemContainer.html('');
-            $pager.addClass('d-none');
-        } else {
-            for(var i = 1; i < totalPage + 1; i++){
-                var pageItem = `<li class="page-item ${i == page ? 'active' : ''}"><a class="page-link" href="${location.pathname}?page=${i}">${i}</a></li>`;
-                $pageItemContainer.append(pageItem);
-            }
-            $pager.removeClass('d-none');
-        }
+    function sortCategory(cat1, cat2){
+        return cat1.order > cat2.order ? -1 : cat1.order < cat2.order ? 1 : 0;
     }
     function getRenderItem(item, index) {
         return {
             index: index + 1,
             name: item.name,
             id: item.id,
+            order: item.order || 0,
             createdAt: moment(new Date(item.createdOn)).format('D MMM YYYY'),
             updatedAt: moment(new Date(item.updatedOn)).format('D MMM YYYY')
         };

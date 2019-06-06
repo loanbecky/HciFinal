@@ -1,4 +1,7 @@
 'use strict';
+const BASE_URL = "";
+const LOGIN_PAGE_URL = `${BASE_URL}/login.html`;
+const DENIED_PAGE_URL = `${BASE_URL}/access-denied.html`;
 
 var navigationService = (function(){
     var _this = {};
@@ -13,10 +16,13 @@ var navigationService = (function(){
         location = DENIED_PAGE_URL;
     };
     _this.toLocalUrl = function(url){
-        location = url;
+        location = `${BASE_URL}${url}`;
     };
     _this.page = function(){
-        return location.pathname;
+        return `${BASE_URL}${location.pathname}`;
+    };
+    _this.reload = function(){
+        location.reload();
     };
 
     return _this;
