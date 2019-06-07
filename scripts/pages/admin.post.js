@@ -35,11 +35,17 @@
 
         tinymce.init({
             selector: '#add-content',
-            height: 200
+            height: 250,
+            mobile: {
+                theme: 'mobile'
+            }
         });
         tinymce.init({
             selector: '#edit-content',
-            height: 200
+            height: 250,
+            mobile: {
+                theme: 'mobile'
+            }
         });
 
         if (actions.create || actions.update) {
@@ -95,7 +101,18 @@
                 if (!formData.content) {
                     commonService.showMessage('Content is required', $addFormAlertMessage);
                     return;
+                } else if (/^<p>(\s*(&nbsp;)*\s*)+<\/p>$/.test(formData.content)) {
+                    commonService.showMessage('Content is required', $addFormAlertMessage);
+                    return;
                 }
+
+                //empty resistant
+                if (!(formData.name = formData.name.trim()).length) {
+                    commonService.showMessage("Please don't enter spaces to required fields", $addFormAlertMessage);
+                    return;
+                }
+                if (formData.short) formData.short = formData.short.trim();
+
                 if (!per.canDo(RESOURCES.POST, ACTIONS.CREATE)) return;
 
                 var post = rep.getEntityByName(rep.keys.post, formData.name);
@@ -134,7 +151,7 @@
 
         if (!actions.update) {
             $postList.on('click', '.edit-btn', function (e) {
-                commonService.alertMessage("You don't have update permission");
+                commonService.alertMessage("You don't have update permission", false, true);
                 return false;
             });
         } else {
@@ -207,7 +224,17 @@
                 if (!formData.content) {
                     commonService.showMessage('Content is required', $editFormAlertMessage);
                     return;
+                } else if (/^<p>(\s*(&nbsp;)*\s*)+<\/p>$/.test(formData.content)) {
+                    commonService.showMessage('Content is required', $editFormAlertMessage);
+                    return;
                 }
+
+                //empty resistant
+                if (!(formData.name = formData.name.trim()).length) {
+                    commonService.showMessage("Please don't enter spaces to required fields", $editFormAlertMessage);
+                    return;
+                }
+                if (formData.short) formData.short = formData.short.trim();
                 if (!per.canDo(RESOURCES.POST, ACTIONS.UPDATE)) return;
 
                 var post = rep.getEntityByName(rep.keys.post, formData.name);
@@ -233,7 +260,7 @@
                     }
                     const creator = userService.getCurrentUser();
                     const category = rep.getEntityById(rep.keys.category, formData.category);
-                    $.extend(formData, { createdOn: new Date(), creator: creator, category: category, featureImage: featureImage, attach: attachFile });
+                    $.extend(formData, { updatedOn: new Date(), creator: creator, category: category, featureImage: featureImage, attach: attachFile });
                     rep.updateEntity(rep.keys.post, id, formData);
                     $editModal.modal('hide');
                     fillDataList(1);
@@ -250,7 +277,7 @@
 
         if (!actions.delete) {
             $postList.on('click', '.delete-post', function (e) {
-                commonService.alertMessage("You don't have delete permission");
+                commonService.alertMessage("You don't have delete permission", false, true);
                 return false;
             });
         } else {
@@ -265,13 +292,13 @@
                 var id = $deleteBtn.data('id');
                 if (!id) return;
                 if (!per.canDo(RESOURCES.POST, ACTIONS.DELETE)) {
-                    commonService.alertMessage("You don't have delete permission");
+                    commonService.alertMessage("You don't have delete permission", false, true);
                     $deleteModal.modal('hide');
                     return;
                 }
                 var post = rep.getEntityById(rep.keys.post, id);
                 if (post == null) {
-                    commonService.alertMessage('Post is not found');
+                    commonService.alertMessage('Post is not found', false, true);
                 } else {
                     var result = rep.deleteEntityById(rep.keys.post, post.id);
                     if (result) {
@@ -282,7 +309,7 @@
                         $deleteModal.modal('hide');
                         fillDataList(1);
                     } else {
-                        commonService.alertMessage(`Delete post '${post.name}' is failed`);
+                        commonService.alertMessage(`Delete post '${post.name}' is failed`, false, true);
                     }
                 }
             });
@@ -315,13 +342,13 @@
             e.preventDefault();
             const id = $(this).data('id');
             const post = rep.getEntityById(rep.keys.post, id);
-            if(post){
+            if (post) {
                 var $modal = $('#detailModal');
                 $modal.find('.modal-title').text(post.name);
                 $modal.find('.modal-body').html(post.content);
                 $modal.modal('show');
             } else {
-                commonService.alertMessage('Post is not found');
+                commonService.alertMessage('Post is not found', false, true);
             }
         });
     });
@@ -345,7 +372,7 @@
                 $postContainer.html(`<tr><td colspan="8"><div class="alert alert-info">Posts data is empty</div></td></tr>`);
             }
         } else {
-            $postContainer.html(`<tr><td colspan="8"><div class="alert alert-info">You don't have read permission</div></td></tr>`);
+            $postContainer.html(`<tr><td colspan="8"><div class="alert alert-danger text-danger">You don't have read permission</div></td></tr>`);
         }
     }
 

@@ -47,7 +47,11 @@
             commonService.alertMessage('Post data is empty', true);
             return;
         }
-        posts = posts.sort(sortPost);
+        posts = posts.sort(function (post1, post2) {
+            var date1 = new Date(post1.createdOn);
+            var date2 = new Date(post2.createdOn);
+            return date1 > date2 ? 1 : date1 < date2 ? -1 : 0;
+        });
         const pagedData = commonService.getPagedData(pageSize, pageIndex, posts);
         const renderData = $.map(pagedData, (item, index) => getPostRenderData(item));
         // for (var i = 0; i < posts.length; i++) {
@@ -68,6 +72,10 @@
             id: item.id,
             image: image,
             short: item.short,
+            category:{
+                name: item.category.name,
+                id: item.category.id
+            },
             content: item.content,
             createdAt: moment(new Date(item.createdOn)).startOf('day').fromNow()
         };

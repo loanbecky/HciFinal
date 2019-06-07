@@ -44,6 +44,11 @@
                 var displayOrder = $addForm.find('[name=order]').val();
 
                 if (!$addForm.valid()) return;
+                //empty resistant
+                if(!(name = name.trim()).length){
+                    commonService.showMessage("Please don't enter spaces to required fields", $addFormAlertMessage);
+                    return;
+                }
                 if (!per.canDo(RESOURCES.CATEGORY, ACTIONS.CREATE)) return;
 
                 var category = rep.getEntityByName(rep.keys.category, name);
@@ -69,7 +74,7 @@
 
         if (!actions.update) {
             $categoryList.on('click', '.edit-category', function (e) {
-                commonService.alertMessage("You don't have update permission");
+                commonService.alertMessage("You don't have update permission", false, true);
                 return false;
             });
         } else {
@@ -100,6 +105,12 @@
                 var editId = $editModal.data('id');
 
                 if (!$editForm.valid()) return;
+                
+                //empty resistant
+                if(!(name = name.trim()).length){
+                    commonService.showMessage("Please don't enter spaces to required fields", $editFormAlertMessage);
+                    return;
+                }
                 if (!per.canDo(RESOURCES.CATEGORY, ACTIONS.UPDATE)) return;
 
                 var category = rep.getEntityById(rep.keys.category, editId);
@@ -117,7 +128,7 @@
                         if (result) {
                             commonService.alertMessage(`Update category is successfully!`);
                         } else {
-                            commonService.alertMessage(`Update category is failed!`);
+                            commonService.alertMessage(`Update category is failed!`, false, true);
                         }
                         $editModal.modal('hide');
                         fillDataList(1);
@@ -135,7 +146,7 @@
         
         if (!actions.delete) {
             $categoryList.on('click', '.delete-category', function (e) {
-                commonService.alertMessage("You don't have delete permission");
+                commonService.alertMessage("You don't have delete permission", false, true);
                 return false;
             });
         } else {
@@ -150,13 +161,13 @@
                 var id = $deleteBtn.data('id');
                 if (!id) return;
                 if (!per.canDo(RESOURCES.CATEGORY, ACTIONS.DELETE)) {
-                    commonService.alertMessage("You don't have delete permission");
+                    commonService.alertMessage("You don't have delete permission", false, true);
                     $deleteModal.modal('hide');
                     return;
                 }
                 var category = rep.getEntityById(rep.keys.category, id);
                 if (category == null) {
-                    commonService.alertMessage('Category is not found');
+                    commonService.alertMessage('Category is not found', false, true);
                 } else {
                     var result = rep.deleteEntityById(rep.keys.category, category.id);
                     if (result) {
@@ -164,7 +175,7 @@
                         $deleteModal.modal('hide');
                         fillDataList(1);
                     } else {
-                        commonService.alertMessage(`Delete category '${category.name}' is failed`);
+                        commonService.alertMessage(`Delete category '${category.name}' is failed`, false, true);
                     }
                 }
             });
@@ -191,7 +202,7 @@
                 $categoryContainer.html(`<tr><td colspan="6"><div class="alert alert-info">Categories data is empty</div></td></tr>`);
             }
         } else {
-            $categoryContainer.html(`<tr><td colspan="6"><div class="alert alert-info">You don't have read permission</div></td></tr>`);
+            $categoryContainer.html(`<tr><td colspan="6"><div class="alert alert-danger text-danger">You don't have read permission</div></td></tr>`);
         }
     }
     function sortCategory(cat1, cat2){

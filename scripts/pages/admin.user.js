@@ -43,6 +43,17 @@
 
                 if (!$addForm.valid()) return;
 
+                //empty resistant
+                if(!(formData.fullname = formData.fullname.trim()).length || !(formData.email = formData.email.trim()).length
+                    || !(formData.password = formData.password.trim()).length
+                ){
+                    commonService.showMessage("Please don't enter spaces to required fields", $addFormAlertMessage);
+                    return;
+                } else if(formData.password.length < 6){
+                    commonService.showMessage("Password's min length is 6", $addFormAlertMessage);
+                    return;
+                }
+
                 if (!per.canDo(RESOURCES.USER, ACTIONS.CREATE)) return;
                 var result = userService.checkEmail(formData.email);
                 if (!result) {
@@ -104,6 +115,14 @@
                 var user = rep.getEntityById(rep.keys.user, id);
                 if (user) {
                     if (!$editForm.valid()) return;
+                
+                    //empty resistant
+                    if(!(formData.fullname = formData.fullname.trim()).length || !(formData.email = formData.email.trim()).length
+                        || !(formData.password = formData.password.trim()).length
+                    ){
+                        commonService.showMessage("Please don't enter spaces to required fields", $editFormAlertMessage);
+                        return;
+                    }
 
                     if (!per.canDo(RESOURCES.USER, ACTIONS.UPDATE)) return;
 

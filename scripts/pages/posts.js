@@ -7,11 +7,15 @@
     const $categoryList = $('#category-list');
     const $recentPostList = $('#recent-post-list');
 
+    const urlParams = new URLSearchParams(window.location.search);
+    let page = urlParams.get('page');
+    if (!page || page < 1) page = 1;
+
     $(function () {
         fillCategoryList();
         fillRecentPostList();
         fillFeaturePostList();
-        fillPostList();
+        fillPostList(page);
     });
 
     //recent
@@ -45,8 +49,9 @@
             $postTemplate.tmpl(renderData).appendTo($featurePostList);
         }
     }
-    function fillPostList() {
+    function fillPostList(page) {
         const pageSize = RESOURCES.POST.userPageSize;
+        const pageIndex = page - 1;
         const $postTemplate = $($postList.data('template'));
         let posts = rep.getEntities(rep.keys.post) || [];
         posts = $.grep(posts, function (item) {
@@ -57,10 +62,12 @@
             return;
         }
         posts = posts.sort(sortPost);
-        for (var i = 0; i < pageSize && i < posts.length; i++) {
-            const renderData = getPostRenderData(posts[i]);
+        const pagedData = commonService.getPagedData(pageSize, pageIndex, posts);
+        for (var i = 0; i < pageSize && i < pagedData.length; i++) {
+            const renderData = getPostRenderData(pagedData[i]);
             $postTemplate.tmpl(renderData).appendTo($postList);
         }
+        commonService.updatePager(page, posts.length, pageSize);
     }
     function getPostRenderData(item) {
         let image = RESOURCES.POST.defaultImage;
@@ -72,6 +79,10 @@
             title: item.name,
             id: item.id,
             image: image,
+            category:{
+                name: item.category.name,
+                id: item.category.id
+            },
             short: item.short,
             content: item.content,
             createdAt: moment(new Date(item.createdOn)).format('MMMM Do, YYYY hh:mm a')
