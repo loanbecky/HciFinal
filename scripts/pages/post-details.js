@@ -5,6 +5,10 @@
     const $categoryList = $('#category-list');
     const $postDetail = $('#post-detail');
 
+    let _attachFileName = null;
+    let _attachFileContent = null;
+    let _attachFileSize = null;
+
     const urlParams = new URLSearchParams(window.location.search);
     let id = urlParams.get('id');
     if (!id) nav.toHome();
@@ -15,38 +19,56 @@
     posts = $.grep(posts, function (item) {
         return item.mode && item.mode.toLowerCase() == 'public';
     });
-    if(!posts.length) {
+    if (!posts.length) {
         commonService.alertMessage('Post data is empty', true);
         return;
     }
     posts = posts.sort(sortPost);
-    for(var i = 0; i < posts.length; i++){
+    for (var i = 0; i < posts.length; i++) {
         var item = posts[i];
-        if(item.id == id){
+        if (item.id == id) {
             post = item;
-            if(i > 0) prePost = posts[i-1];
-            if(i + 1 < posts.length) nextPost = posts[i + 1];
+            if (i > 0) prePost = posts[i - 1];
+            if (i + 1 < posts.length) nextPost = posts[i + 1];
             break;
         }
     }
 
     if (!post) nav.toHome();
-    $('.current-post-title').text(post.name);
-    $('title').text($('title').text() + ' ' + post.name);
 
     let page = urlParams.get('page');
     if (!page || page < 1) page = 1;
 
     $(function () {
+        $('.current-post-title').text(post.name);
+        $('a.current-post-id').attr('href', $('a.current-post-id').attr('href') + post.id);
+        $('title').text($('title').text() + ' ' + post.name);
         fillCategoryList();
-        //$(`.current-category-selected[data-id=${id}]`).addClass('active');
         fillPostDetail(page);
+        $(`.current-category-selected[data-id=${post.category ? post.category.id : 0}]`).addClass('active');
+        $('.current-category-link').text(post.category.name);
+        $('.current-category-link').attr('href', $('.current-category-link').attr('href') + post.category.id);
     });
     function fillPostDetail(page) {
         const $postTemplate = $($postDetail.data('template'));
-            const renderData = getPostRenderData(post, prePost, nextPost);
-            $postTemplate.tmpl(renderData).appendTo($postDetail);
-            $postDetail.find(`.content`).html(post.content)
+        const renderData = getPostRenderData(post, prePost, nextPost);
+        $postTemplate.tmpl(renderData).appendTo($postDetail);
+        $postDetail.find(`.content`).html(post.content);
+        $('.download-attach').click(function (e) {
+            e.preventDefault();
+            if (_attachFileName && _attachFileContent) {
+                var element = document.createElement('a');
+                element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(_attachFileContent));
+                element.setAttribute('download', _attachFileName);
+
+                element.style.display = 'none';
+                document.body.appendChild(element);
+
+                element.click();
+
+                document.body.removeChild(element);
+            }
+        });
         // const pageSize = RESOURCES.CATEGORY.postPageSize;
         // const pageIndex = page - 1;
         // const $postTemplate = $($featurePostList.data('template'));
@@ -74,11 +96,24 @@
             const imageEntity = rep.getEntityById(rep.keys.image, item.featureImage);
             if (imageEntity) image = imageEntity.data;
         }
+        if (item.attach) {
+            const file = rep.getEntityById(rep.keys.file, item.attach);
+            if (file) {
+                _attachFileContent = file.data;
+                _attachFileName = file.name;
+                _attachFileSize = file.size;
+            }
+        }
+        let creator = rep.getEntityById(rep.keys.user, item.creator.id);
         return {
             title: item.name,
             id: item.id,
             preId: preItem ? preItem.id : 0,
             nextId: nextItem ? nextItem.id : 0,
+            attach: {
+                name: _attachFileName,
+                size: _attachFileSize
+            },
             image: image,
             short: item.short,
             content: item.content,
@@ -86,8 +121,8 @@
                 id: item.category.id,
                 name: item.category.name
             },
-            creator: item.creator ? item.creator.fullname ? item.creator.email : '' : '',
-            createdAt: moment(new Date(item.createdOn)).format('MMMM Do, YYYY hh:mm a')
+            creator: creator ? creator.fullname ? creator.fullname : creator.email : '',
+            createdAt: moment(new Date(item.createdOn)).format('MMMM Do, YYYY hh:mm A')
         };
     }
     //menu
@@ -100,7 +135,7 @@
             $categoryTemplate.tmpl(renderData).appendTo($categoryList);
         }
     }
-    function sortCategory(cat1, cat2){
+    function sortCategory(cat1, cat2) {
         return cat1.order > cat2.order ? 1 : cat1.order < cat2.order ? -1 : 0;
     }
     function sortPost(post1, post2) {

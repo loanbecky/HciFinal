@@ -40,8 +40,8 @@
                     <a class="nav-link" href="permission.html">Permission</a>
                 </li>
             </ul>
-            <ul class="navbar-nav">
-                <li>
+            <ul class="navbar-nav d-none" id="user-info">
+                <li class="d-none d-md-inline">
                     <span>
                         <img id="currentUserImage" src="../images/currentuser.png" class="img-fluid"
                             style="height: 30px" />
@@ -51,7 +51,8 @@
                     <a class="nav-link" href="#" id="currentUserEmail"></a>
                 </li>
                 <li>
-                    <a class="nav-link" href="#" id="logout">Logout</a>
+                    <a class="nav-link" href="#" id="logout">Logout <i
+                            class="fa fa-sign-out d-none d-md-inline"></i></a>
                 </li>
             </ul>
         </div>
@@ -141,14 +142,14 @@
                     </div>
                     <form novalidate>
                         <div class="modal-body">
-                            <div class="alert alert-warning d-none" id="addFormAlertMessage"></div>
+                            <div class="alert alert-danger text-danger d-none" id="addFormAlertMessage"></div>
                             <div class="form-group row">
                                 <label for="add-title" class="col-sm-3 col-form-label">Title (*):</label>
                                 <div class="col-sm-9">
                                     <input type="text" id="add-title" name="name" class="form-control form-control-sm"
                                         data-val="true" data-val-required="Title is required"
                                         data-val-maxlength="Title's max length is 200" data-val-maxlength-max="200" />
-                                    <small class="form-text text-muted" data-valmsg-for="name"
+                                    <small class="form-text text-danger" data-valmsg-for="name"
                                         data-valmsg-replace="true"></small>
                                 </div>
                             </div>
@@ -159,7 +160,7 @@
                                         name="category" data-val="true" data-val-required="Category is required">
                                         <option value="" selected>-- Select --</option>
                                     </select>
-                                    <small class="form-text text-muted" data-valmsg-for="category"
+                                    <small class="form-text text-danger" data-valmsg-for="category"
                                         data-valmsg-replace="true"></small>
                                 </div>
                             </div>
@@ -170,7 +171,7 @@
                                         class="form-control form-control-sm" data-val="true"
                                         data-val-maxlength="Description's max length is 500"
                                         data-val-maxlength-max="500"></textarea>
-                                    <small class="form-text text-muted" data-valmsg-for="short"
+                                    <small class="form-text text-danger" data-valmsg-for="short"
                                         data-valmsg-replace="true"></small>
                                 </div>
                             </div>
@@ -179,7 +180,7 @@
                                 <div class="col-sm-9">
                                     <textarea id="add-content" name="content" data-val="true"
                                         data-val-required="Content is required"></textarea>
-                                    <small class="form-text text-muted" data-valmsg-for="content"
+                                    <small class="form-text text-danger" data-valmsg-for="content"
                                         data-valmsg-replace="true"></small>
                                 </div>
                             </div>
@@ -192,7 +193,7 @@
                                                 <option value="Draft">Draft</option>
                                                 <option value="Public">Public</option>
                                             </select>
-                                            <small class="form-text text-muted" data-valmsg-for="mode"
+                                            <small class="form-text text-danger" data-valmsg-for="mode"
                                                 data-valmsg-replace="true"></small>
                                         </div>
                                     </div>
@@ -206,7 +207,8 @@
                                                         <label class="custom-control-label" for="add-showOnHomepage">On
                                                             Homepage</label>
                                                     </div>
-                                                    <small class="form-text text-muted" data-valmsg-for="showOnHomepage"
+                                                    <small class="form-text text-danger"
+                                                        data-valmsg-for="showOnHomepage"
                                                         data-valmsg-replace="true"></small>
                                                 </div>
                                                 <div class="col-sm-6">
@@ -216,7 +218,7 @@
                                                         <label class="custom-control-label" for="add-isFeature">Is
                                                             Feature</label>
                                                     </div>
-                                                    <small class="form-text text-muted" data-valmsg-for="isFeature"
+                                                    <small class="form-text text-danger" data-valmsg-for="isFeature"
                                                         data-valmsg-replace="true"></small>
                                                 </div>
                                             </div>
@@ -232,7 +234,7 @@
                                                 style="cursor: pointer; text-decoration: underline">
                                                 <i class="fa fa-file-archive-o"></i> Choose file
                                             </label>
-                                            <small class="form-text text-muted" data-valmsg-for="attach"
+                                            <small class="form-text text-danger" data-valmsg-for="attach"
                                                 data-valmsg-replace="true"></small>
                                             <span id="add-attach-file"></span>
                                         </div>
@@ -250,7 +252,7 @@
                                             <i class="fa fa-file-image-o"></i> Feature Image
                                         </label>
                                     </div>
-                                    <small class="form-text text-muted" data-valmsg-for="featureImage"
+                                    <small class="form-text text-danger" data-valmsg-for="featureImage"
                                         data-valmsg-replace="true"></small>
                                 </div>
                             </div>
@@ -281,14 +283,14 @@
                     </div>
                     <form novalidate>
                         <div class="modal-body">
-                            <div class="alert alert-warning d-none" id="editFormAlertMessage"></div>
+                            <div class="alert alert-danger text-danger d-none" id="editFormAlertMessage"></div>
                             <div class="form-group row">
                                 <label for="edit-title" class="col-sm-3 col-form-label">Title (*):</label>
                                 <div class="col-sm-9">
                                     <input type="text" id="edit-title" name="name" class="form-control form-control-sm"
                                         data-val="true" data-val-required="Title is required"
                                         data-val-maxlength="Title's max length is 200" data-val-maxlength-max="200" />
-                                    <small class="form-text text-muted" data-valmsg-for="name"
+                                    <small class="form-text text-danger" data-valmsg-for="name"
                                         data-valmsg-replace="true"></small>
                                 </div>
                             </div>
@@ -299,7 +301,7 @@
                                         name="category" data-val="true" data-val-required="Category is required">
                                         <option value="" selected>-- Select --</option>
                                     </select>
-                                    <small class="form-text text-muted" data-valmsg-for="category"
+                                    <small class="form-text text-danger" data-valmsg-for="category"
                                         data-valmsg-replace="true"></small>
                                 </div>
                             </div>
@@ -310,7 +312,7 @@
                                         class="form-control form-control-sm" data-val="true"
                                         data-val-maxlength="Description's max length is 500"
                                         data-val-maxlength-max="500"></textarea>
-                                    <small class="form-text text-muted" data-valmsg-for="short"
+                                    <small class="form-text text-danger" data-valmsg-for="short"
                                         data-valmsg-replace="true"></small>
                                 </div>
                             </div>
@@ -319,7 +321,7 @@
                                 <div class="col-sm-9">
                                     <textarea id="edit-content" name="content" data-val="true"
                                         data-val-required="Content is required"></textarea>
-                                    <small class="form-text text-muted" data-valmsg-for="content"
+                                    <small class="form-text text-danger" data-valmsg-for="content"
                                         data-valmsg-replace="true"></small>
                                 </div>
                             </div>
@@ -332,7 +334,7 @@
                                                 <option value="Draft">Draft</option>
                                                 <option value="Public">Public</option>
                                             </select>
-                                            <small class="form-text text-muted" data-valmsg-for="mode"
+                                            <small class="form-text text-danger" data-valmsg-for="mode"
                                                 data-valmsg-replace="true"></small>
                                         </div>
                                     </div>
@@ -346,7 +348,8 @@
                                                         <label class="custom-control-label" for="edit-showOnHomepage">On
                                                             Homepage</label>
                                                     </div>
-                                                    <small class="form-text text-muted" data-valmsg-for="showOnHomepage"
+                                                    <small class="form-text text-danger"
+                                                        data-valmsg-for="showOnHomepage"
                                                         data-valmsg-replace="true"></small>
                                                 </div>
                                                 <div class="col-sm-6">
@@ -356,7 +359,7 @@
                                                         <label class="custom-control-label" for="edit-isFeature">Is
                                                             Feature</label>
                                                     </div>
-                                                    <small class="form-text text-muted" data-valmsg-for="isFeature"
+                                                    <small class="form-text text-danger" data-valmsg-for="isFeature"
                                                         data-valmsg-replace="true"></small>
                                                 </div>
                                             </div>
@@ -372,7 +375,7 @@
                                                 style="cursor: pointer; text-decoration: underline">
                                                 <i class="fa fa-file-archive-o"></i> Choose file
                                             </label>
-                                            <small class="form-text text-muted" data-valmsg-for="attach"
+                                            <small class="form-text text-danger" data-valmsg-for="attach"
                                                 data-valmsg-replace="true"></small>
                                             <span id="edit-attach-file"></span>
                                         </div>
@@ -390,7 +393,7 @@
                                             <i class="fa fa-file-image-o"></i> Feature Image
                                         </label>
                                     </div>
-                                    <small class="form-text text-muted" data-valmsg-for="featureImage"
+                                    <small class="form-text text-danger" data-valmsg-for="featureImage"
                                         data-valmsg-replace="true"></small>
                                 </div>
                             </div>
@@ -430,7 +433,7 @@
                                     <th class="text-right">No.</th>
                                     <th>Title</th>
                                     <th>Category</th>
-                                    <th>Description</th>
+                                    <th class="d-none d-md-block">Description</th>
                                     <th>Mode</th>
                                     <th><i class="fa fa-home"></i></th>
                                     <th><i class="fa fa-flag"></i></th>
@@ -443,13 +446,16 @@
                         </table>
                     </div>
 
+
                     <!-- PAGER -->
-                    <div class="w-25 mx-auto d-none" id="pager">
-                        <nav>
-                            <ul class="pagination">
-                                <!-- template -->
-                            </ul>
-                        </nav>
+                    <div class="position-relative">
+                        <div class="d-none float-right" id="pager">
+                            <nav>
+                                <ul class="pagination">
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="clearfix"></div>
                     </div>
                     <!-- PAGER -->
 
@@ -464,7 +470,7 @@
     <script id="postTemplate" type="text/x-jQuery-tmpl">
         <tr>
             <td class="text-right">${index}</td>
-            <td class="text-break" style="max-width: 400px;">
+            <td class="text-break" style="min-width:200px;max-width: 400px;">
                 <a href="../postDetail.html?id=${id}" target="_blank">${title}</a>
             </td>
             <td>
@@ -472,7 +478,7 @@
                 ${category.name}
                 </a>
             </td>
-            <td class="text-break" style="max-width: 400px;">${short}</td>
+            <td class="text-break d-none d-md-block style="max-width: 400px;">${short}</td>
             <td>${mode}</td>
             <td>
                 {{if onHomepage}}

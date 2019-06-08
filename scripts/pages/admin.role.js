@@ -41,6 +41,11 @@
                 if (!$addForm.valid()) return;
                 var name = $addnameInput.val();
                 if (!name || !name.length) return;
+                //empty resistant
+                if(!(name = name.trim()).length){
+                    commonService.showMessage("Please don't enter spaces to required fields", $addRoleAlertMessage);
+                    return;
+                }
                 if (!per.canDo(RESOURCES.ROLE, ACTIONS.CREATE)) return;
                 var role = rep.getEntityByName(rep.keys.role, name);
                 if (role == null) {
@@ -63,7 +68,7 @@
         }
         if (!actions.delete) {
             $roleContainer.on('click', '.delete-role', function (e) {
-                commonService.alertMessage("You don't have delete permission");
+                commonService.alertMessage("You don't have delete permission", false, true);
                 return false;
             });
         } else {
@@ -78,13 +83,13 @@
                 var id = $deleteRoleBtn.data('id');
                 if (!id) return;
                 if (!per.canDo(RESOURCES.ROLE, ACTIONS.DELETE)) {
-                    commonService.alertMessage("You don't have delete permission");
+                    commonService.alertMessage("You don't have delete permission", false, true);
                     $deleteModal.modal('hide');
                     return;
                 }
                 var role = rep.getEntityById(rep.keys.role, id);
                 if (role == null) {
-                    commonService.alertMessage('Role is not found');
+                    commonService.alertMessage('Role is not found', false, true);
                 } else {
                     var result = rep.deleteEntityById(rep.keys.role, role.id);
                     if (result) {
@@ -92,7 +97,7 @@
                         $deleteModal.modal('hide');
                         fillDataList();
                     } else {
-                        commonService.alertMessage(`Delete role '${role.name}' is failed`);
+                        commonService.alertMessage(`Delete role '${role.name}' is failed`, false, true);
                     }
                 }
             });
@@ -100,7 +105,7 @@
 
         if (!actions.update) {
             $roleContainer.on('click', '.edit-role', function (e) {
-                commonService.alertMessage("You don't have update permission");
+                commonService.alertMessage("You don't have update permission", false, true);
                 return false;
             });
         } else {
@@ -129,6 +134,11 @@
                 var name = $editForm.find('[name=name]').val();
                 var editId = $editModal.data('id');
                 if (!name || !name.length) return;
+                //empty resistant
+                if(!(name = name.trim()).length){
+                    commonService.showMessage("Please don't enter spaces to required fields", $editRoleAlertMessage);
+                    return;
+                }
                 if (!per.canDo(RESOURCES.ROLE, ACTIONS.UPDATE)) return;
                 var role = rep.getEntityById(rep.keys.role, editId);
                 if (role == null) {
@@ -145,7 +155,7 @@
                         if (result) {
                             commonService.alertMessage(`Update role is successfully!`);
                         } else {
-                            commonService.alertMessage(`Update role is failed!`);
+                            commonService.alertMessage(`Update role is failed!`, false, true);
                         }
                         $editModal.modal('hide');
                         fillDataList();
@@ -171,7 +181,7 @@
                 $roleContainer.html(`<tr><td colspan="5"><div class="alert alert-info">Roles data is empty</div></td></tr>`);
             }
         } else {
-            $roleContainer.html(`<tr><td colspan="5"><div class="alert alert-info">You don't have read permission</div></td></tr>`);
+            $roleContainer.html(`<tr><td colspan="5"><div class="alert alert-danger text-danger">You don't have read permission</div></td></tr>`);
         }
     }
     function getRenderItem(item, index) {

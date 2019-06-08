@@ -40,8 +40,8 @@
                     <a class="nav-link" href="permission.html">Permission</a>
                 </li>
             </ul>
-            <ul class="navbar-nav">
-                <li>
+            <ul class="navbar-nav d-none" id="user-info">
+                <li class="d-none d-md-inline">
                     <span>
                         <img id="currentUserImage" src="../images/currentuser.png" class="img-fluid"
                             style="height: 30px" />
@@ -51,7 +51,7 @@
                     <a class="nav-link" href="#" id="currentUserEmail"></a>
                 </li>
                 <li>
-                    <a class="nav-link" href="#" id="logout">Logout</a>
+                    <a class="nav-link" href="#" id="logout">Logout <i class="fa fa-sign-out d-none d-md-inline"></i></a>
                 </li>
             </ul>
         </div>
@@ -92,13 +92,13 @@
                     </div>
                     <form novalidate>
                         <div class="modal-body">
-                            <div class="alert alert-warning d-none" id="addFormAlertMessage"></div>
+                            <div class="alert alert-danger text-danger d-none" id="addFormAlertMessage"></div>
                             <div class="form-group row">
                                 <label for="add-fullname" class="col-sm-4 col-form-label">Full Name (*):</label>
                                 <div class="col-sm-8">
                                     <input type="text" name="fullname" class="form-control" id="add-fullname" data-val="true"
                                         data-val-required="Full name is required" data-val-maxlength="Full-name's max length is 100" data-val-maxlength-max="100" />
-                                    <small class="form-text text-muted" data-valmsg-for="fullname"
+                                    <small class="form-text text-danger" data-valmsg-for="fullname"
                                         data-valmsg-replace="true"></small>
                                 </div>
                             </div>
@@ -107,7 +107,7 @@
                                 <div class="col-sm-8">
                                     <input type="email" name="email" class="form-control" id="add-email" data-val="true"
                                         data-val-required="Email is required" data-val-email="Email is invalid" />
-                                    <small class="form-text text-muted" data-valmsg-for="email"
+                                    <small class="form-text text-danger" data-valmsg-for="email"
                                         data-valmsg-replace="true"></small>
                                 </div>
                             </div>
@@ -119,7 +119,7 @@
                                         data-val-minlength="Password's min length is 6" data-val-minlength-min="6"
                                         data-val-maxlength="Password's max length is 200"
                                         data-val-maxlength-max="200" />
-                                    <small class="form-text text-muted" data-valmsg-for="password"
+                                    <small class="form-text text-danger" data-valmsg-for="password"
                                         data-valmsg-replace="true"></small>
                                 </div>
                             </div>
@@ -130,7 +130,7 @@
                                         data-val-required="Role is required">
                                         <option selected value="">-- Select --</option>
                                     </select>
-                                    <small class="form-text text-muted" data-valmsg-for="role"
+                                    <small class="form-text text-danger" data-valmsg-for="role"
                                         data-valmsg-replace="true"></small>
                                 </div>
                             </div>
@@ -160,13 +160,13 @@
                     </div>
                     <form novalidate>
                         <div class="modal-body">
-                            <div class="alert alert-warning d-none" id="editFormAlertMessage"></div>
+                            <div class="alert alert-danger text-danger d-none" id="editFormAlertMessage"></div>
                             <div class="form-group row">
                                 <label for="edit-fullname" class="col-sm-4 col-form-label">Full Name (*):</label>
                                 <div class="col-sm-8">
                                     <input type="text" name="fullname" class="form-control" id="edit-fullname" data-val="true"
                                         data-val-required="Full name is required" data-val-maxlength="Full-name's max length is 100" data-val-maxlength-max="100" />
-                                    <small class="form-text text-muted" data-valmsg-for="fullname"
+                                    <small class="form-text text-danger" data-valmsg-for="fullname"
                                         data-valmsg-replace="true"></small>
                                 </div>
                             </div>
@@ -175,7 +175,7 @@
                                 <div class="col-sm-8">
                                     <input type="email" name="email" class="form-control" id="edit-email" data-val="true"
                                         data-val-required="Email is required" data-val-email="Email is invalid" />
-                                    <small class="form-text text-muted" data-valmsg-for="email"
+                                    <small class="form-text text-danger" data-valmsg-for="email"
                                         data-valmsg-replace="true"></small>
                                 </div>
                             </div>
@@ -187,7 +187,7 @@
                                         data-val-minlength="Password's min length is 6" data-val-minlength-min="6"
                                         data-val-maxlength="Password's max length is 200"
                                         data-val-maxlength-max="200" />
-                                    <small class="form-text text-muted" data-valmsg-for="password"
+                                    <small class="form-text text-danger" data-valmsg-for="password"
                                         data-valmsg-replace="true"></small>
                                 </div>
                             </div>
@@ -198,7 +198,7 @@
                                         data-val-required="Role is required">
                                         <option selected value="">-- Select --</option>
                                     </select>
-                                    <small class="form-text text-muted" data-valmsg-for="role"
+                                    <small class="form-text text-danger" data-valmsg-for="role"
                                         data-valmsg-replace="true"></small>
                                 </div>
                             </div>
@@ -259,9 +259,9 @@
                             <thead>
                                 <tr>
                                     <th class="text-right">No.</th>
-                                    <th class="text-break">Full name</th>
-                                    <th class="text-break">Email</th>
-                                    <th class="text-break">Password</th>
+                                    <th>Full name</th>
+                                    <th>Email</th>
+                                    <th>Password</th>
                                     <th>Created At</th>
                                     <th>Update At</th>
                                     <th class="text-center">Tools</th>
@@ -273,11 +273,14 @@
                         </table>
                     </div>
                     <!-- PAGER -->
-                    <div class="w-25 mx-auto d-none" id="pager">
-                        <nav>
-                            <ul class="pagination">
-                            </ul>
-                        </nav>
+                    <div class="position-relative">
+                        <div class="d-none float-right" id="pager">
+                            <nav>
+                                <ul class="pagination">
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="clearfix"></div>
                     </div>
                     <!-- PAGER -->
                 </div>
@@ -297,8 +300,10 @@
             <td>${createdAt}</td>
             <td>${updatedAt}</td>
             <td class="text-center">
+                <div class="btn-group">
                 <a href="#" class="btn btn-light btn-sm edit-btn" data-id="${id}"><i class="fa fa-pencil"></i> Edit</a>
                 <a href="#" class="btn btn-light btn-sm delete-btn" data-id="${id}"><i class="fa fa-trash"></i> Delete</a>
+                </div>
             </td>
         </tr>
     </script>

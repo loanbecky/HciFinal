@@ -39,6 +39,10 @@
             title: item.name,
             id: item.id,
             image: image,
+            category:{
+                name: item.category ? item.category.name : '',
+                id: item.category ? item.category.id : 0
+            },
             content: item.content,
             createdAt: moment(new Date(item.createdOn)).format('MMMM Do, YYYY hh:mm a')
         };

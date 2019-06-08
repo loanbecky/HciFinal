@@ -11,12 +11,15 @@
     if (!id) nav.toHome();
     const category = rep.getEntityById(rep.keys.category, id);
     if (!category) nav.toHome();
-    $('.current-category-name').text(category.name);
-    $('title').text($('title').text() + ' ' + category.name);
     let page = urlParams.get('page');
     if (!page || page < 1) page = 1;
 
     $(function () {
+        $('.current-category-name').text(category.name);
+        $('title').text($('title').text() + ' ' + category.name);
+        $('a.current-category-id').attr('href', function () {
+            $(this).attr('href', $(this).attr('href') + category.id);
+        });
         fillCategoryList();
         $(`.current-category-selected[data-id=${id}]`).addClass('active');
         fillRecentPostList();
@@ -54,7 +57,7 @@
             commonService.alertMessage('Post data is empty', true);
             return;
         }
-        posts = posts.sort(function(post1, post2){
+        posts = posts.sort(function (post1, post2) {
             var date1 = new Date(post1.createdOn);
             var date2 = new Date(post2.createdOn);
             return date1 > date2 ? 1 : date1 < date2 ? -1 : 0;
@@ -79,6 +82,10 @@
             id: item.id,
             image: image,
             short: item.short,
+            category: {
+                name: item.category.name,
+                id: item.category.id
+            },
             content: item.content,
             createdAt: moment(new Date(item.createdOn)).format('MMMM Do, YYYY hh:mm a')
         };
@@ -93,7 +100,7 @@
             $categoryTemplate.tmpl(renderData).appendTo($categoryList);
         }
     }
-    function sortCategory(cat1, cat2){
+    function sortCategory(cat1, cat2) {
         return cat1.order > cat2.order ? 1 : cat1.order < cat2.order ? -1 : 0;
     }
     function sortPost(post1, post2) {

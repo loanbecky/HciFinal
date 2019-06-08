@@ -15,8 +15,17 @@ var commonService = (function ($, navigationService) {
         });
     });
 
-    _this.alertMessage = function (message, persistent) {
+    _this.alertMessage = function (message, persistent, error) {
         if (message) {
+            if(error){
+                $alertMessage.removeClass('alert-success');
+                $alertMessage.addClass('alert-danger');
+                $alertMessage.addClass('text-danger');
+            } else {
+                $alertMessage.addClass('alert-success');
+                $alertMessage.removeClass('alert-danger');
+                $alertMessage.removeClass('text-danger');
+            }
             $alertMessage.find('.content').html(message);
             $alertMessage.removeClass('d-none');
             clearTimeout(_timeout);
@@ -26,10 +35,15 @@ var commonService = (function ($, navigationService) {
                 }, 4000);
             }
         } else {
+            $alertMessage.addClass('alert-success');
+            $alertMessage.removeClass('alert-danger');
+            $alertMessage.removeClass('text-danger');
+            
             $alertMessage.find('.content').html('');
             $alertMessage.addClass('d-none');
         }
     };
+
     _this.showMessage = function (message, target, timeout) {
         if (message) {
             target.html(message);

@@ -13,12 +13,19 @@
         navigationService.toLogin();
     }
     $(function () {
-        var currentUser = userService.getCurrentUser();
-        if(currentUser){
-            $('#currentUserEmail').text(currentUser.email);
+        const currentUser = userService.getCurrentUser();
+        const $userInfo = $('#user-info');
+        const $userLogin = $('#user-login');
+        if (currentUser) {
+            $userInfo.removeClass('d-none');
+            $userLogin.addClass('d-none');
+            $userInfo.find('#currentUserEmail').text(currentUser.email);
+        } else {
+            $userInfo.addClass('d-none');
+            $userLogin.removeClass('d-none');
         }
 
-        $('#logout').click(function(e){
+        $('#logout').click(function (e) {
             e.preventDefault();
             authService.signOut();
             navigationService.toHome();

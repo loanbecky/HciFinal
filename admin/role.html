@@ -40,8 +40,8 @@
                     <a class="nav-link" href="permission.html">Permission</a>
                 </li>
             </ul>
-            <ul class="navbar-nav">
-                <li>
+            <ul class="navbar-nav d-none" id="user-info">
+                <li class="d-none d-md-inline">
                     <span>
                         <img id="currentUserImage" src="../images/currentuser.png" class="img-fluid"
                             style="height: 30px" />
@@ -51,7 +51,7 @@
                     <a class="nav-link" href="#" id="currentUserEmail"></a>
                 </li>
                 <li>
-                    <a class="nav-link" href="#" id="logout">Logout</a>
+                    <a class="nav-link" href="#" id="logout">Logout <i class="fa fa-sign-out d-none d-md-inline"></i></a>
                 </li>
             </ul>
         </div>
@@ -118,14 +118,14 @@
                     </div>
                     <form novalidate>
                         <div class="modal-body">
-                            <div class="alert alert-warning d-none" id="editRoleAlertMessage"></div>
+                            <div class="alert alert-danger text-danger d-none" id="editRoleAlertMessage"></div>
                             <div class="form-group row">
                                 <label for="name" class="col-sm-4 col-form-label">Role Name (*):</label>
                                 <div class="col-sm-8">
                                     <input type="text" name="name" class="form-control" data-val="true"
                                         data-val-required="Name is required"
                                         data-val-maxlength="Name's max length is 100" data-val-maxlength-max="100" />
-                                    <small class="form-text text-muted" data-valmsg-for="name"
+                                    <small class="form-text text-danger" data-valmsg-for="name"
                                         data-valmsg-replace="true"></small>
                                 </div>
                             </div>
@@ -156,14 +156,14 @@
                     </div>
                     <form novalidate>
                         <div class="modal-body">
-                            <div class="alert alert-warning d-none" id="addRoleAlertMessage"></div>
+                            <div class="alert alert-danger text-danger d-none" id="addRoleAlertMessage"></div>
                             <div class="form-group row">
                                 <label for="name" class="col-sm-4 col-form-label">Role Name (*):</label>
                                 <div class="col-sm-8">
                                     <input type="text" name="name" class="form-control" data-val="true"
                                         data-val-required="Name is required"
                                         data-val-maxlength="Name's max length is 100" data-val-maxlength-max="100" />
-                                    <small class="form-text text-muted" data-valmsg-for="name"
+                                    <small class="form-text text-danger" data-valmsg-for="name"
                                         data-valmsg-replace="true"></small>
                                 </div>
                             </div>
