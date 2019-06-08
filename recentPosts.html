@@ -17,36 +17,50 @@
 
 <body>
     <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm p-3 bg-white rounded">
+    <nav class="navbar navbar-expand-lg  navbar-dark bg-primary shadow-sm p-3 rounded">
         <a class="navbar-brand" href="index.html">IT BLOG</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav mr-auto" id="category-list" data-template="#categoryTemplate">
                 <!-- <li class="nav-item active">
                         <a class="nav-link" href="index.html"><i class="fa fa-home"></i></a>
                       </li> -->
                 <li class="nav-item">
-                    <a class="nav-link" href="posts.html">Post</a>
+                    <a class="nav-link" href="posts.html">All Posts</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarCategories" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Categories
-                    </a>
-                    <div class="dropdown-menu text-break" aria-labelledby="navbarCategories" id="category-list"
-                        data-template="#categoryTemplate">
-                        <!-- data -->
-                    </div>
-                    <!-- templates -->
-                    <script id="categoryTemplate" type="text/x-jQuery-tmpl">
-                          <a class="dropdown-item text-break" href="postInCategory.html?id=${id}">${name}</a>
-                        </script>
-                    <!-- templates -->
+            </ul>
+
+            <ul class="navbar-nav d-none" id="user-info">
+                <li class="d-none d-md-inline">
+                    <span>
+                        <img id="currentUserImage" src="images/currentuser.png" class="img-fluid"
+                            style="height: 30px" />
+                    </span>
                 </li>
+                <li>
+                    <a class="nav-link" href="#" id="currentUserEmail"></a>
+                </li>
+                <li>
+                    <a class="nav-link" href="#" id="logout">Logout <i
+                            class="fa fa-sign-out d-none d-md-inline"></i></a>
+                </li>
+            </ul>
+            <ul class="navbar-nav" id="user-login">
+                <li class="nav-item">
+                    <a class="nav-link" href="login.html"><i class="fa fa-sign-in d-none d-md-inline"> </i>Login</i></a>
+                </li>
+            </ul>
         </div>
+        <!-- templates -->
+        <script id="categoryTemplate" type="text/x-jQuery-tmpl">
+                    <li class="nav-item">
+                          <a class="nav-link text-break current-category-selected" data-id="${id}" href="postInCategory.html?id=${id}">${name}</a>
+                    </li>
+                        </script>
+        <!-- templates -->
     </nav>
     <!-- END NAVBAR -->
     <!-- MAIN -->
@@ -55,14 +69,20 @@
             <h1>Welcome to IT Blog</h1>
         </div> -->
         <nav aria-label="breadcrumb">
-            <ol class="breadcrumb bg-light">
+            <ol class="breadcrumb bg-light float-left">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Recent Posts</li>
             </ol>
+            <div class="clearfix"></div>
         </nav>
         <div class="row">
             <!-- LEFT -->
             <div class="col-md-9">
+
+                <div class="mb-4 mt-2">
+                    <h1 class="h3">Recent Posts</h1>
+                    <hr />
+                </div>
                 <div class="alert alert-info alert-dismissible d-none text-break" id="alertMessage" role="alert">
                     <span class="content"></span>
                     <button type="button" class="close" aria-label="Close">
@@ -74,22 +94,28 @@
                     <script id="postTemplate" type="text/x-jQuery-tmpl">
                             <div class="card" style="min-height:300px;">
                                 <div class="position-relative">
-                                        <a href="postDetail.html" class="stretched-link"><img src="${image}" class="card-img-top img-fluid" alt="${title}"
+                                        <a href="postDetail.html"><img src="${image}" class="card-img-top img-fluid" alt="${title}"
                                         style="height:150px;"/>
                                         </a>
-                                        <div class="card-img-overlay bg-dark p-0" style="top:inherit;opacity:0.7">
-                                            <div class="btn-group btn-block">
-                                                    <a href="postDetail.html" class="btn btn-light stretched-link"><i class="fa fa-eye"></i> Read more</a>
-                                                    <a class="btn btn-light"><i class="fa fa-clock-o"></i> ${createdAt}</a>
-                                                    <!-- <a class="btn btn-light"><i class="fa fa-comments"></i></a> -->
-                                            </div>
-                                        </div>
                                     </div>
-                                    <div class="card-body">
-                                        <h5 class="card-title"><a href="postDetail.html" class="stretched-link text-decoration-none text-dark">${title}</a></h5>
+                                    <div class="card-body pt-2">
+                                        <div class="position-relative">
+                                            <span class="card-text">
+                                                <a class="badge badge-primary" href="postInCategory.html?id=${category.id}">${category.name}</a>
+                                            </span>
+                                            <small class="text-muted float-right">${createdAt}</small>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <h5 class="card-title pt-2"><a href="postDetail.html?id=${id}" class="text-dark">${title}</a></h5>
                                         <div class="cart-text content-${id}">${short}</div>
                                     </div>
+                                    <!-- <p class="card-text text-center">
+                                            <a href="postDetail.html?id=${id}" class="px-3 py-2 text-muted">
+                                                Read more
+                                            </a>
+                                    </p> -->
                                 </div>
+                            </div>
                         </script>
                     <!-- END TEMPLATE -->
                     <div class="card-columns" id="post-list" data-template="#postTemplate">
@@ -161,7 +187,7 @@
     <!-- build:js scripts/vendor.js -->
     <script type="text/javascript" src="scripts/jquery.min.js"></script>
     <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
-    <script type="text/javascript" src="scripts/moment.js"></script>
+    <script type="text/javascript" src="scripts/moment.min.js"></script>
     <!-- endbuild -->
     <script src="scripts/globals.js"></script>
     <script>
