@@ -1,6 +1,6 @@
 "use strict";
 
-(function ($, rep, nav, per, RESOURCES, ACTIONS, commonService, moment) {
+(function ($, rep, nav, per, RESOURCES, ACTIONS, commonService) {
     const $postList = $('#post-list');
     const $categoryList = $('#category-list');
     const $recentPostList = $('#recent-post-list');
@@ -44,7 +44,7 @@
                 id: item.category ? item.category.id : 0
             },
             content: item.content,
-            createdAt: moment(new Date(item.createdOn)).format('MMMM Do, YYYY hh:mm a')
+            createdAt: moment(new Date(item.createdOn)).format('MMMM Do, YYYY')
         };
     }
 
@@ -94,4 +94,4 @@
         };
     }
 
-})(jQuery, repository, navigationService, permissionService, RESOURCES, ACTIONS, commonService, moment);
+})(jQuery, repository, navigationService, permissionService, RESOURCES, ACTIONS, commonService);

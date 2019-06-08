@@ -11,6 +11,8 @@
     let page = urlParams.get('page');
     if (!page || page < 1) page = 1;
 
+    let _featurePostIds = [];
+
     $(function () {
         fillCategoryList();
         fillRecentPostList();
@@ -44,8 +46,10 @@
             return item.mode && item.mode.toLowerCase() == 'public' && item.isFeature;
         });
         posts = posts.sort(sortPost);
+        _featurePostIds = [];
         for (var i = 0; i < posts.length; i++) {
             const renderData = getPostRenderData(posts[i]);
+            _featurePostIds.push(posts[i].id);
             $postTemplate.tmpl(renderData).appendTo($featurePostList);
         }
     }
@@ -55,7 +59,14 @@
         const $postTemplate = $($postList.data('template'));
         let posts = rep.getEntities(rep.keys.post) || [];
         posts = $.grep(posts, function (item) {
-            return item.mode && item.mode.toLowerCase() == 'public';
+            let isFeature = false;
+            for(var i = 0; i < _featurePostIds.length; i++){
+                if(item.id == _featurePostIds[i]){
+                    isFeature = true;
+                    break;
+                }
+            }
+            return !isFeature && item.mode && item.mode.toLowerCase() == 'public';
         });
         if(!posts.length) {
             commonService.alertMessage('Post data is empty', true);

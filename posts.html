@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>IT Blog - Posts</title>
+    <title>IT Blog - All Posts</title>
     <base href="/HciFinal/">
     <!-- Place favicon.ico in the root directory -->
     <!-- build:css styles/main.css -->
@@ -17,53 +17,69 @@
 
 <body>
     <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm p-3 bg-white rounded">
+    <nav class="navbar navbar-expand-lg  navbar-dark bg-primary shadow-sm p-3 rounded">
         <a class="navbar-brand" href="index.html">IT BLOG</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav mr-auto" id="category-list" data-template="#categoryTemplate">
                 <!-- <li class="nav-item active">
                 <a class="nav-link" href="index.html"><i class="fa fa-home"></i></a>
               </li> -->
                 <li class="nav-item active">
-                    <a class="nav-link" href="posts.html">Post</a>
+                    <a class="nav-link" href="posts.html">All Posts</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarCategories" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Categories
-                    </a>
-                    <div class="dropdown-menu text-break" aria-labelledby="navbarCategories" id="category-list"
-                        data-template="#categoryTemplate">
-                        <!-- data -->
-                    </div>
-                    <!-- templates -->
-                    <script id="categoryTemplate" type="text/x-jQuery-tmpl">
-                  <a class="dropdown-item text-break" href="postInCategory.html?id=${id}">${name}</a>
-                </script>
-                    <!-- templates -->
+            </ul>
+
+            <ul class="navbar-nav d-none" id="user-info">
+                <li class="d-none d-md-inline">
+                    <span>
+                        <img id="currentUserImage" src="images/currentuser.png" class="img-fluid"
+                            style="height: 30px" />
+                    </span>
                 </li>
+                <li>
+                    <a class="nav-link" href="#" id="currentUserEmail"></a>
+                </li>
+                <li>
+                    <a class="nav-link" href="#" id="logout">Logout <i
+                            class="fa fa-sign-out d-none d-md-inline"></i></a>
+                </li>
+            </ul>
+            <ul class="navbar-nav" id="user-login">
+                <li class="nav-item">
+                    <a class="nav-link" href="login.html"><i class="fa fa-sign-in d-none d-md-inline"> </i>Login</i></a>
+                </li>
+            </ul>
         </div>
+        <!-- templates -->
+        <script id="categoryTemplate" type="text/x-jQuery-tmpl">
+            <li class="nav-item">
+                  <a class="nav-link text-break" href="postInCategory.html?id=${id}">${name}</a>
+            </li>
+                </script>
+        <!-- templates -->
     </nav>
     <!-- END NAVBAR -->
     <!-- MAIN -->
     <div class="container-fluid shadow-sm p-3 bg-white rounded" style="min-height:600px;">
-        <!-- <div class="my-4">
-            <h1>Welcome to IT Blog</h1>
-        </div> -->
         <nav aria-label="breadcrumb" class="float-left">
             <ol class="breadcrumb bg-light">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Posts</li>
+                <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-home"></i></a></li>
+                <li class="breadcrumb-item active" aria-current="page">All Posts</li>
             </ol>
         </nav>
         <div class="clearfix"></div>
         <div class="row">
             <!-- LEFT -->
             <div class="col-md-9">
+
+                <div class="mb-4 mt-2">
+                    <h2 class="h3">All Posts</h1>
+                        <hr />
+                </div>
                 <div class="alert alert-info alert-dismissible d-none text-break" id="alertMessage" role="alert">
                     <span class="content"></span>
                     <button type="button" class="close" aria-label="Close">
@@ -72,50 +88,15 @@
                 </div>
                 <div class="">
                     <div id="feature-post-list" class="row" data-template="#featurePostTemplate"></div>
-                    <!-- <div class="col-12">
-                        <div class="card mb-3">
-                            <div class="row no-gutters">
-                                <div class="col-md-4">
-                                    <img src="/images/developer1.png" class="card-img img-responsive" alt="...">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">This is a wider card with supporting text below as a
-                                            natural lead-in to additional content. This content is a little bit longer.
-                                        </p>
-                                        <ul class="list-group list-group-horizontal">
-                                            <li class="list-group-item">
-                                                <a href="#" class="btn btn-light"><i class="fa fa-eye"></i> Read
-                                                    more</a>
-                                            </li>
-                                            <li class="list-group-item">
-                                                <a class="btn btn-light"><i class="fa fa-clock-o"></i> 5 Dec 2019</a>
-                                            </li>
-                                            <li class="list-group-item">
-                                                <a class="btn btn-light"><i class="fa fa-comments"></i> 55 comments</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-                    <div class="row" id="post-list" data-template="#postTemplate">
-                        <!-- <div class="col-md-4 my-3">
-                            <div class="card bg-dark text-white">
-                                <img src="/images/developer1.png" class="card-img" alt="..." style="height:220px">
-                                <div class="card-img-overlay bg-dark py-2" style="top:inherit;opacity:0.7">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">This is a wider card with supporting text below as a natural
-                                        lead-in to additional
-                                        content. This content is a little bit longer.</p>
-                                    <p class="card-text">Last updated 3 mins ago</p>
-                                    <a href="#readmore" class="stretched-link"></a>
-                                </div>
-                            </div>
-                        </div> -->
+                    <div class="row" id="post-list" data-template="#postTemplate"></div>
+                    <!-- PAGER -->
+                    <div class="d-none" id="pager">
+                        <nav>
+                            <ul class="pagination">
+                            </ul>
+                        </nav>
                     </div>
+                    <!-- PAGER -->
                 </div>
             </div>
             <!-- END LEFT -->
@@ -132,34 +113,46 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body">
+                                        
+                                            <div>
+                                                    <a href="postInCategory.html?id=${category.id}" class="badge badge-primary">${category.name}</a>
+                                                    <small class="text-muted">${createdAt}</small>
+                                            </div>
                                         <h5 class="card-title">
                                                 <a href="postDetail.html?id=${id}" class="text-decoration-none text-dark">${title}</a></h5>
                                         <p class="card-text">
                                             ${short}
                                         </p>
-                                        <div class="btn-group btn-block">
-                                                <a href="postDetail.html?id=${id}" class="btn btn-light"><i class="fa fa-eye"></i> Read more</a>
-                                                <a class="btn btn-light"><i class="fa fa-clock-o"></i> ${createdAt}</a>
-                                        </div>
-                                    </div>
+                                        
+                                            <div class="position-absolute" style="bottom:10px;right:10px;">
+                                                    <a href="postDetail.html?id=${id}" class="text-muted">Read more</a>
+                                            </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
             </script>
+
             <script id="postTemplate" type="text/x-jQuery-tmpl">
-                    <div class="col-md-6 my-3">
-                        <div class="card bg-dark text-white">
-                                <a href="postDetail.html?id=${id}" class="stretched-link">
-                        <img src="${image}" class="card-img" alt="${title}" style="height:280px"/>
-                                </a>
-                        <div class="card-img-overlay bg-dark py-2" style="top:inherit;opacity:0.7">
-                            <h5 class="card-title"><a href="postDetail.html?id=${id}" class="text-decoration-none text-white">${title}</a></h5>
-                            <p class="card-text">${createdAt}</p>
-                            <a class="stretched-link" href="postDetail.html?id=${id}"></a>
-                        </div>
-                        </div>
-            </script>
+        <div class="col-md-6 my-3">
+            <div class="card bg-light text-light">
+                <a href="postDetail.html?id=${id}">
+              <img src="${image}" class="card-img" alt="${title}" style="height:280px">
+                </a>
+              <div class="card-img-overlay bg-dark p-2" style="top:inherit;opacity:0.7;min-height:110px;">
+                  <div class="mb-2">
+                      <span class="badge badge-primary">${category.name}</span>
+                      <small class="float-right pt-1" style="color:#90a8bd">${createdAt}</small>
+                      <div class="clearfix"></div>
+                    </div>
+                <h5 class="card-title">
+                    <a href="postDetail.html?id=${id}" class="stretched-link text-white">${title}</a></h5>
+                <a class="stretched-link" href="postDetail.html?id=${id}"></a>
+              </div>
+            </div>
+          </div>
+  </script>
             <!-- templates -->
             <!-- RIGHT -->
             <div class="col-md-3">
@@ -191,7 +184,7 @@
     <!-- build:js scripts/vendor.js -->
     <script type="text/javascript" src="scripts/jquery.min.js"></script>
     <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
-    <script type="text/javascript" src="scripts/moment.js"></script>
+    <script type="text/javascript" src="scripts/moment.min.js"></script>
     <!-- endbuild -->
     <script src="scripts/globals.js"></script>
     <script>
