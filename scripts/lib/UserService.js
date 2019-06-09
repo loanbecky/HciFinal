@@ -49,11 +49,19 @@ var userService = (function (rep, navigationService) {
         return false;
     };
 
-    _this.insertUser = function (userData) {
+    _this.insertUser = function (userData, callback) {
         if (!userData) return false;
 
-        var userId = rep.insertEntity(rep.keys.user, {fullname:userData.fullname, email: userData.email, password: userData.password, createdOn: new Date(), updatedOn: new Date() });
-        rep.insertEntity(rep.keys.userRole, { userId: userId, roleId: userData.role });
+        var userId = rep.insertEntity(rep.keys.user, { fullname: userData.fullname, email: userData.email, password: userData.password, createdOn: new Date(), updatedOn: new Date() });
+        if (userData.role) {
+            rep.insertEntity(rep.keys.userRole, { userId: userId, roleId: userData.role });
+        } else {
+            var guestRole = rep.getEntityByName(rep.keys.role, "guest");
+            if(guestRole){
+                rep.insertEntity(rep.keys.userRole, { userId: userId, roleId: guestRole.id });
+            }
+        }
+        if(callback) callback(userId);
     };
     _this.deleteUserRoleByUserId = function (userId) {
         const userRoles = rep.getEntities(rep.keys.userRole);

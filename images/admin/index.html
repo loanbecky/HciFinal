@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="IT Blog Post">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>IT Blogs</title>
+    <base href="/HciFinal/admin/">
+    <!-- build:css styles/main.css -->
+    <link rel="stylesheet" href="../styles/bootstrap.min.css">
+    <link rel="stylesheet" href="../styles/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <!-- endbuild -->
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+        <a class="navbar-brand" href="index.html">IT BLOGS</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="post.html">Post</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="user.html">User</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="category.html">Category</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="role.html">Role</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="permission.html">Permission</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav d-none" id="user-info">
+                <li class="d-none d-md-inline">
+                    <span>
+                        <img id="currentUserImage" src="../images/currentuser.png" class="img-fluid"
+                            style="height: 30px" />
+                    </span>
+                </li>
+                <li>
+                    <a class="nav-link" href="#" id="currentUserEmail"></a>
+                </li>
+                <li>
+                    <a class="nav-link" href="#" id="logout">Logout <i class="fa fa-sign-out d-none d-md-inline"></i></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container mt-4">
+        <div class="jumbotron">
+            <h1 class="display-4">Welcome to IT Blogs Administration!</h1>
+            <p class="lead">Post Management, User Management, Category Management, Role Management, Permission
+                Management</p>
+            <hr class="my-4">
+            <a class="btn btn-primary btn-lg" href="post.html" role="button">Go to Post Management</a>
+        </div>
+    </div>
+
+    <!-- build:js scripts/vendor.js -->
+    <script type="text/javascript" src="../scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="../scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../scripts/moment.min.js"></script>
+    <script type="text/javascript" src="../scripts/jquery.validate.min.js"></script>
+    <script type="text/javascript"
+        src="../scripts/jquery.validate.unobtrusive.min.js"></script>
+    <!-- endbuild -->
+    <!-- build:js scripts/main.js -->
+    <script src="../scripts/globals.js"></script>
+    <script>
+        const __config__ = new AuthorizeConfig();
+    </script>
+    <script src="../scripts/lib/jQuery.tmpl.js"></script>
+    <script src="../scripts/lib/NavigationService.js"></script>
+    <script src="../scripts/lib/CommonService.js"></script>
+    <script src="../scripts/lib/Repository.js"></script>
+    <script src="../scripts/lib/UserService.js"></script>
+    <script src="../scripts/lib/PermissionService.js"></script>
+    <script src="../scripts/lib/AuthService.js"></script>
+    <script src="../scripts/main.js"></script>
+    <script src="../scripts/pages/admin.permission.js"></script>
+    <!-- endbuild -->
+</body>
+
+</html>

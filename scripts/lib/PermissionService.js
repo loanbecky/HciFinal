@@ -87,7 +87,26 @@ var permissionService = (function (rep, userService) {
     };
     _this.canDoActions = function (resourceData) {
         return _this.getCanDoActions(userService.getCurrentUser(), resourceData);
-    }
+    };
+    _this.hasPermission = function(permissionData){
+        if(!permissionData || !permissionData.resource || !permissionData.action) return false;
+        const currentUser = userService.getCurrentUser();
+        if(!currentUser) return;
+        const userRoles = rep.getEntities(rep.keys.userRole) || [];
+        var rolePermissions = rep.getEntities(rep.keys.rolePermission) || [];
+        for(var userRole of userRoles){
+            if(userRole.userId == currentUser.id){
+                for(var rolePermission of rolePermissions){
+                    if(rolePermission.roleId == userRole.roleId){
+                        if(rolePermission.permissionId == permissionData.resource.id && rolePermission[permissionData.action]){
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    };
 
     function getRolePermission(roleId, permissionId) {
         var rolePermissions = rep.getEntities(rep.keys.rolePermission);

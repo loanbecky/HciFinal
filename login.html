@@ -8,61 +8,83 @@
     <title>Login</title>
 	<base href="/HciFinal/">
     <!-- build:css styles/main.css -->
-    <link rel="stylesheet" href="styles/bootstrap.min.css">
-    <link rel="stylesheet" href="styles/css/font-awesome.min.css">
-    <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/bootstrap.min.css">
+  <link rel="stylesheet" href="styles/css/font-awesome.min.css">
+  <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
 </head>
 
-<body>
+<body class="pt-5">
     
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg  navbar-dark bg-primary shadow-sm p-3 rounded">
-            <a class="navbar-brand" href="index.html">IT BLOG</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto" id="category-list" data-template="#categoryTemplate">
-                    <!-- <li class="nav-item active">
-                            <a class="nav-link" href="index.html"><i class="fa fa-home"></i></a>
-                          </li> -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="posts.html">All Posts</a>
-                    </li>
-                </ul>
-    
-                <ul class="navbar-nav d-none" id="user-info">
-                    <li class="d-none d-md-inline">
-                        <span>
-                            <img id="currentUserImage" src="images/currentuser.png" class="img-fluid"
-                                style="height: 30px" />
-                        </span>
-                    </li>
-                    <li>
-                        <a class="nav-link" href="#" id="currentUserEmail"></a>
-                    </li>
-                    <li>
-                        <a class="nav-link" href="#" id="logout">Logout <i
-                                class="fa fa-sign-out d-none d-md-inline"></i></a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav" id="user-login">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="login.html"><i class="fa fa-sign-in d-none d-md-inline"> </i>Login</i></a>
-                    </li>
-                </ul>
+  <a href="#" id="back-to-top" title="Back to top">&uarr;</a>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary shadow-sm p-3 rounded">
+    <a class="navbar-brand" href="index.html">IT BLOG</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto category-container" id="category-list" data-template="#categoryTemplate">
+        <!-- <li class="nav-item active">
+          <a class="nav-link" href="index.html"><i class="fa fa-home"></i></a>
+        </li> -->
+        <li class="nav-item">
+          <a class="nav-link" href="posts.html">All Posts</a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 mr-sm-3" id="form-search">
+          <div class="input-group">
+              <input class="form-control form-control-sm" name="keywords" type="text" placeholder="Search" aria-label="Search">
+              <div class="input-group-append">
+                  <button class="btn btn-success btn-sm" type="submit"><i class="fa fa-search"></i></button>
+                </div>
             </div>
-            <!-- templates -->
-            <script id="categoryTemplate" type="text/x-jQuery-tmpl">
-                        <li class="nav-item">
-                              <a class="nav-link text-break current-category-selected" data-id="${id}" href="postInCategory.html?id=${id}">${name}</a>
-                        </li>
-                            </script>
-            <!-- templates -->
-        </nav>
-        <!-- END NAVBAR -->
+          </form>
+      <ul class="navbar-nav d-none" id="user-info">
+        <li class="d-none d-md-inline">
+          <span>
+            <img id="currentUserImage" src="images/currentuser.png" class="img-fluid" style="height: 30px" />
+          </span>
+        </li>
+        <li>
+          <a class="nav-link" href="#" id="currentUserEmail"></a>
+        </li>
+        <li>
+          <a class="nav-link" href="#" id="logout">Logout <i class="fa fa-sign-out d-none d-md-inline"></i></a>
+        </li>
+      </ul>
+      <ul class="navbar-nav" id="user-login">
+          <li class="nav-item">
+            <a class="nav-link" href="register.html"><i class="fa fa-user d-none d-md-inline"> </i>Register</i></a>
+          </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="login.html"><i class="fa fa-sign-in d-none d-md-inline"> </i>Login</i></a>
+        </li>
+      </ul>
+    </div>
+    <!-- templates -->
+    <script id="categoryTemplate" type="text/x-jQuery-tmpl">
+      {{if !children || !children.length}}
+      <li class="nav-item">
+            <a class="nav-link text-break" href="postInCategory.html?id=${id}">${name}</a>
+      </li>
+      {{else}}
+      <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="postInCategory.html?id=${id}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            ${name}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+      {{each(index, value) children}}
+            <a class="dropdown-item" href="postInCategory.html?id=${value.id}">${value.name}</a>
+            {{/each}}
+          </div>
+        </li>
+        {{/if}}
+          </script>
+    <!-- templates -->
+  </nav>
+  <!-- END NAVBAR -->
     <div class="container shadow p-3 my-5 bg-white rounded">
         <!--[if IE]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -123,10 +145,58 @@
         </div>
     </div>
     <!-- END FOOTER -->
+    <!-- FOOTER -->
+  <!-- <footer class="p-3 shadow-sm bg-white rounded mt-1">
+    &copy; 2019
+  </footer> -->
+  <footer class="p-3 shadow-sm bg-white rounded mt-1">
+    <div class="container-fluid pt-4 pb-2">
+      <div class="row justify-content-md-between">
+        <div class="col-md-8 row category-container" data-template="#footCategoryTemplate"></div>
+        <div class="col-sm-12 col-md-4">
+          <h3 class="h5">Recent Posts</h3>
+          <ul class="list-group list-group-flush">
+            <li class="recent-posts list-group-item" data-template="#footRecentPostTemplate" data-page="3"></li>
+          </ul>
+        </div>
+      </div>
+      <hr>
+      <p class="small">© HCI Final</p>
+    </div>
+  </footer>
+  <script id="footRecentPostTemplate" type="text/x-jQuery-tmpl">
+    <li class="media mb-4">
+      <a href="postDetail.html?id=${id}">
+        <img src="${image}" class="mr-3 img-thumbnail img-fluid" alt="${title}" style="max-height:80px;max-width:100px;"/>
+      </a>
+        <div class="media-body">
+          <span class="mt-0 mb-1">
+      <a href="postDetail.html?id=${id}">
+        ${title}
+      </a>
+    </span><br/><small class="text-muted">${createdAt}</small>
+        </div>
+      </li>
+  </script>
+  <script id="footCategoryTemplate" type="text/x-jQuery-tmpl">
+    <div class="col-6 col-md-4 mb-4">
+        <h4 class="h5 ml-4">
+          <!-- <a href="postInCategory.html?id=${id}"> -->
+            ${name}
+          <!-- </a> -->
+        </h4>
+        <ul class="list-group list-group-flush">
+            {{each(i, value) children}}
+            <li class="list-group-item"><a href="postInCategory.html?id=${value.id}">${value.name}</a></li>
+          {{/each}}
+          </ul>
+      </div>
+  </script>
+  <!-- END FOOTER -->
     <!-- build:js scripts/vendor.js -->
-    <script type="text/javascript" src="scripts/jquery.min.js"></script>
-    <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
-    <script type="text/javascript" src="scripts/moment.min.js"></script>
+  <script type="text/javascript" src="scripts/jquery.min.js"></script>
+  <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
+  <script type="text/javascript" src="scripts/moment.min.js"></script>
     <script type="text/javascript" src="scripts/jquery.validate.min.js"></script>
     <script type="text/javascript"
         src="scripts/jquery.validate.unobtrusive.min.js"></script>
