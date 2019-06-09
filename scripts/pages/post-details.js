@@ -43,10 +43,10 @@
         $('.current-post-title').text(post.name);
         $('a.current-post-id').attr('href', $('a.current-post-id').attr('href') + post.id);
         $('title').text($('title').text() + ' ' + post.name);
-        fillPostDetail(page);
+        var data = fillPostDetail(page);
         $(`.parent-category-selected[data-id=${post.category ? post.category.parent : 0}]`).addClass('active');
         $(`.current-category-selected[data-id=${post.category ? post.category.id : 0}]`).addClass('active');
-        $('.current-category-link').text(post.category.name);
+        $('.current-category-link').text(data.category.name);
         $('.current-category-link').attr('href', $('.current-category-link').attr('href') + post.category.id);
     });
     function fillPostDetail(page) {
@@ -69,6 +69,7 @@
                 document.body.removeChild(element);
             }
         });
+        return renderData;
         // const pageSize = RESOURCES.CATEGORY.postPageSize;
         // const pageIndex = page - 1;
         // const $postTemplate = $($featurePostList.data('template'));
