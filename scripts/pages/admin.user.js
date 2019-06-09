@@ -260,13 +260,15 @@
         }
     }
     function getRenderItem(item, index) {
+        console.log(item);
+
         return {
             index: index + 1,
             email: item.email,
             password: item.password,
             id: item.id,
             fullname: item.fullname,
-            role: item.role,
+            role: userService.getRoleByUserId(item.id),
             createdAt: item.createdOn ? moment(new Date(item.createdOn)).format('D MMM YYYY') : '',
             updatedAt: item.updatedOn ? moment(new Date(item.updatedOn)).format('D MMM YYYY') : ''
         };
