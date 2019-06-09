@@ -96,7 +96,7 @@
                     $editFormAlertMessage.addClass('d-none');
                     $editForm.find('[name=name]').val(category.name);
                     $editForm.find('[name=parent]').val(category.parent || 0);
-                   // $editForm.find('[name=order]').val(category.order || 0);
+                    $editForm.find('[name=order]').val(category.order || 0);
                     fillParentCategories(category.id, category.parent || 0, $editParentCategoreis);
                 } else {
                     $editFormAlertMessage.text('Category is not found');
