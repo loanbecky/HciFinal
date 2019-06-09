@@ -19,7 +19,7 @@ var navigationService = (function(){
         location = `${url}`;
     };
     _this.page = function(){
-        return `${BASE_URL}${location.pathname}`;
+        return `${location.pathname}`;
     };
     _this.reload = function(){
         location.reload();

@@ -44,7 +44,7 @@
             $addForm.submit(function (e) {
                 e.preventDefault();
                 var name = $addNameInput.val();
-                var displayOrder = $addForm.find('[name=order]').val();
+               // var displayOrder = $addForm.find('[name=order]').val();
                 var parent = $addForm.find('[name=parent]').val();
                 parent = parent || 0;
 
@@ -62,7 +62,7 @@
                     $addFormAlertMessage.addClass('d-none');
 
                     $addFormSubmit.attr('disabled', true);
-                    rep.insertEntity(rep.keys.category, { name: name, parent: parent, order: displayOrder, createdOn: new Date(), updatedOn: new Date() });
+                    rep.insertEntity(rep.keys.category, { name: name, parent: parent, createdOn: new Date(), updatedOn: new Date() });
                     $addModal.modal('hide');
                     fillDataList(1);
 
@@ -96,7 +96,7 @@
                     $editFormAlertMessage.addClass('d-none');
                     $editForm.find('[name=name]').val(category.name);
                     $editForm.find('[name=parent]').val(category.parent || 0);
-                    $editForm.find('[name=order]').val(category.order || 0);
+                  //  $editForm.find('[name=order]').val(category.order || 0);
                     fillParentCategories(category.id, category.parent || 0, $editParentCategoreis);
                 } else {
                     $editFormAlertMessage.text('Category is not found');
@@ -107,7 +107,7 @@
             $editForm.submit(function (e) {
                 e.preventDefault();
                 var name = $editForm.find('[name=name]').val();
-                var displayOrder = $editForm.find('[name=order]').val();
+               // var displayOrder = $editForm.find('[name=order]').val();
                 var parent = $editForm.find('[name=parent]').val();
                 parent = parent || 0;
                 var editId = $editModal.data('id');
@@ -132,7 +132,7 @@
                         $editFormAlertMessage.addClass('d-none');
 
                         $editFormSubmit.attr('disabled', true);
-                        var result = rep.updateEntity(rep.keys.category, category.id, { name: name, order: displayOrder, parent: parent, updatedOn: new Date() });
+                        var result = rep.updateEntity(rep.keys.category, category.id, { name: name, parent: parent, updatedOn: new Date() });
                         if (result) {
                             commonService.alertMessage(`Update category is successfully!`);
                         } else {
@@ -246,7 +246,6 @@
             index: index + 1,
             name: item.name,
             id: item.id,
-            order: item.order || 0,
             createdAt: moment(new Date(item.createdOn)).format('D MMM YYYY'),
             updatedAt: moment(new Date(item.updatedOn)).format('D MMM YYYY')
         };
