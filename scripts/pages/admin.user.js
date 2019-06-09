@@ -266,6 +266,7 @@
             password: item.password,
             id: item.id,
             fullname: item.fullname,
+            role: item.role,
             createdAt: item.createdOn ? moment(new Date(item.createdOn)).format('D MMM YYYY') : '',
             updatedAt: item.updatedOn ? moment(new Date(item.updatedOn)).format('D MMM YYYY') : ''
         };
