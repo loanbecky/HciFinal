@@ -5,8 +5,8 @@ const RESOURCES = {
         names: ['Role']
     },
     POST: { id: 1, names: ['Blog Post'],
-        maxImageSize: 1, maxAttachSize: 1, //MB
-        adminPageSize: 5, userPageSize: 12, recentPageSize: 10,
+        maxImageSize: 1, maxAttachSize: 2, //MB
+        adminPageSize: 5, userPageSize: 6, recentPageSize: 10,
         defaultImage: 'images/default-image.png'
     },
     CATEGORY: { id: 2, names: ['Categories'], pageSize: 5, postPageSize: 10 },
@@ -36,6 +36,7 @@ function _createConfigObj(options) {
     config.requireRead = function () {
         return config.action && config.action.toLowerCase() == 'read';
     };
+
     config.requireAction = function () {
         return config.action ? config.action : 'read';
     };
@@ -44,8 +45,22 @@ function _createConfigObj(options) {
         return config.role ? config.role : false;
     };
 
+    config.requirePermission = function(){
+        if(config.resource && config.action){
+            return {
+                resource: config.resource,
+                action: config.action
+            };
+        }
+        return false;
+    };
+
     return config;
 };
+
+function PermissionAuthorizeResourceConfig(resource, action) {
+    return _createConfigObj({authorize: true, resource: resource, action: action });
+}
 
 //admin
 function AdminForResourceActionConfig(action, resource) {

@@ -15,34 +15,15 @@
     if (!page || page < 1) page = 1;
 
     $(function () {
+        fillPostList(page);
         $('.current-category-name').text(category.name);
         $('title').text($('title').text() + ' ' + category.name);
         $('a.current-category-id').attr('href', function () {
             $(this).attr('href', $(this).attr('href') + category.id);
         });
-        fillCategoryList();
         $(`.current-category-selected[data-id=${id}]`).addClass('active');
-        fillRecentPostList();
-        fillPostList(page);
+        $(`.parent-category-selected[data-id=${category.parent}]`).addClass('active');
     });
-
-    //recent
-    function fillRecentPostList() {
-        const pageSize = RESOURCES.POST.recentPageSize;
-        const $recentPostTemplate = $($recentPostList.data('template'));
-        let posts = rep.getEntities(rep.keys.post) || [];
-        posts = posts.sort(sortPost);
-        for (var i = 0; i < pageSize && i < posts.length; i++) {
-            const renderData = getRecentPostRenderData(posts[i]);
-            $recentPostTemplate.tmpl(renderData).appendTo($recentPostList);
-        }
-    }
-    function getRecentPostRenderData(item) {
-        return {
-            title: item.name,
-            id: item.id
-        };
-    }
 
     //post
     function fillPostList(page) {
@@ -77,42 +58,18 @@
             const imageEntity = rep.getEntityById(rep.keys.image, item.featureImage);
             if (imageEntity) image = imageEntity.data;
         }
+        const category = rep.getEntityById(rep.keys.category, item.category ? item.category.id : 0);
         return {
             title: item.name,
             id: item.id,
             image: image,
             short: item.short,
             category: {
-                name: item.category.name,
-                id: item.category.id
+                name: category.name,
+                id: category.id
             },
             content: item.content,
             createdAt: moment(new Date(item.createdOn)).format('MMMM Do, YYYY hh:mm a')
         };
     }
-    //menu
-    function fillCategoryList() {
-        const $categoryTemplate = $($categoryList.data('template'));
-        let categories = rep.getEntities(rep.keys.category) || [];
-        categories = categories.sort(sortCategory);
-        for (var i = 0; i < categories.length; i++) {
-            const renderData = getCategoryRenderData(categories[i]);
-            $categoryTemplate.tmpl(renderData).appendTo($categoryList);
-        }
-    }
-    function sortCategory(cat1, cat2) {
-        return cat1.order > cat2.order ? 1 : cat1.order < cat2.order ? -1 : 0;
-    }
-    function sortPost(post1, post2) {
-        var date1 = new Date(post1.createdOn);
-        var date2 = new Date(post2.createdOn);
-        return date1 > date2 ? -1 : date1 < date2 ? 1 : 0;
-    }
-    function getCategoryRenderData(item) {
-        return {
-            name: item.name,
-            id: item.id
-        };
-    }
-
 })(jQuery, repository, navigationService, permissionService, RESOURCES, ACTIONS, commonService);

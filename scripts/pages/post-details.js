@@ -43,8 +43,8 @@
         $('.current-post-title').text(post.name);
         $('a.current-post-id').attr('href', $('a.current-post-id').attr('href') + post.id);
         $('title').text($('title').text() + ' ' + post.name);
-        fillCategoryList();
         fillPostDetail(page);
+        $(`.parent-category-selected[data-id=${post.category ? post.category.parent : 0}]`).addClass('active');
         $(`.current-category-selected[data-id=${post.category ? post.category.id : 0}]`).addClass('active');
         $('.current-category-link').text(post.category.name);
         $('.current-category-link').attr('href', $('.current-category-link').attr('href') + post.category.id);
@@ -105,6 +105,8 @@
             }
         }
         let creator = rep.getEntityById(rep.keys.user, item.creator.id);
+        
+        const category = rep.getEntityById(rep.keys.category, item.category ? item.category.id : 0);
         return {
             title: item.name,
             id: item.id,
@@ -118,36 +120,11 @@
             short: item.short,
             content: item.content,
             category: {
-                id: item.category.id,
-                name: item.category.name
+                id: category.id,
+                name: category.name
             },
             creator: creator ? creator.fullname ? creator.fullname : creator.email : '',
             createdAt: moment(new Date(item.createdOn)).format('MMMM Do, YYYY hh:mm A')
         };
     }
-    //menu
-    function fillCategoryList() {
-        const $categoryTemplate = $($categoryList.data('template'));
-        let categories = rep.getEntities(rep.keys.category) || [];
-        categories = categories.sort(sortCategory);
-        for (var i = 0; i < categories.length; i++) {
-            const renderData = getCategoryRenderData(categories[i]);
-            $categoryTemplate.tmpl(renderData).appendTo($categoryList);
-        }
-    }
-    function sortCategory(cat1, cat2) {
-        return cat1.order > cat2.order ? 1 : cat1.order < cat2.order ? -1 : 0;
-    }
-    function sortPost(post1, post2) {
-        var date1 = new Date(post1.createdOn);
-        var date2 = new Date(post2.createdOn);
-        return date1 > date2 ? -1 : date1 < date2 ? 1 : 0;
-    }
-    function getCategoryRenderData(item) {
-        return {
-            name: item.name,
-            id: item.id
-        };
-    }
-
 })(jQuery, repository, navigationService, permissionService, RESOURCES, ACTIONS, commonService);

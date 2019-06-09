@@ -9,62 +9,84 @@
     <base href="/HciFinal/">
     <!-- Place favicon.ico in the root directory -->
     <!-- build:css styles/main.css -->
-    <link rel="stylesheet" href="styles/bootstrap.min.css">
-    <link rel="stylesheet" href="styles/css/font-awesome.min.css">
-    <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/bootstrap.min.css">
+  <link rel="stylesheet" href="styles/css/font-awesome.min.css">
+  <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
 </head>
 
-<body>
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg  navbar-dark bg-primary shadow-sm p-3 rounded">
-        <a class="navbar-brand" href="index.html">IT BLOG</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+<body class="pt-5">
+        <a href="#" id="back-to-top" title="Back to top">&uarr;</a>
+        <!-- NAVBAR -->
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary shadow-sm p-3 rounded">
+          <a class="navbar-brand" href="index.html">IT BLOG</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto" id="category-list" data-template="#categoryTemplate">
-                <!-- <li class="nav-item active">
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto category-container" id="category-list" data-template="#categoryTemplate">
+              <!-- <li class="nav-item active">
                 <a class="nav-link" href="index.html"><i class="fa fa-home"></i></a>
               </li> -->
-                <li class="nav-item">
-                    <a class="nav-link" href="posts.html">All Posts</a>
-                </li>
+              <li class="nav-item">
+                <a class="nav-link" href="posts.html">All Posts</a>
+              </li>
             </ul>
-
+            <form class="form-inline my-2 mr-sm-3" id="form-search">
+                <div class="input-group">
+                    <input class="form-control form-control-sm" name="keywords" type="text" placeholder="Search" aria-label="Search">
+                    <div class="input-group-append">
+                        <button class="btn btn-success btn-sm" type="submit"><i class="fa fa-search"></i></button>
+                      </div>
+                  </div>
+                </form>
             <ul class="navbar-nav d-none" id="user-info">
-                <li class="d-none d-md-inline">
-                    <span>
-                        <img id="currentUserImage" src="images/currentuser.png" class="img-fluid"
-                            style="height: 30px" />
-                    </span>
-                </li>
-                <li>
-                    <a class="nav-link" href="#" id="currentUserEmail"></a>
-                </li>
-                <li>
-                    <a class="nav-link" href="#" id="logout">Logout <i
-                            class="fa fa-sign-out d-none d-md-inline"></i></a>
-                </li>
+              <li class="d-none d-md-inline">
+                <span>
+                  <img id="currentUserImage" src="images/currentuser.png" class="img-fluid" style="height: 30px" />
+                </span>
+              </li>
+              <li>
+                <a class="nav-link" href="#" id="currentUserEmail"></a>
+              </li>
+              <li>
+                <a class="nav-link" href="#" id="logout">Logout <i class="fa fa-sign-out d-none d-md-inline"></i></a>
+              </li>
             </ul>
             <ul class="navbar-nav" id="user-login">
                 <li class="nav-item">
-                    <a class="nav-link" href="login.html"><i class="fa fa-sign-in d-none d-md-inline"> </i>Login</i></a>
+                  <a class="nav-link" href="register.html"><i class="fa fa-user d-none d-md-inline"> </i>Register</i></a>
                 </li>
+              <li class="nav-item">
+                <a class="nav-link" href="login.html"><i class="fa fa-sign-in d-none d-md-inline"> </i>Login</i></a>
+              </li>
             </ul>
-        </div>
-        <!-- templates -->
-        <script id="categoryTemplate" type="text/x-jQuery-tmpl">
-            <li class="nav-item">
-                  <a class="nav-link text-break current-category-selected" data-id="${id}" href="postInCategory.html?id=${id}">${name}</a>
+          </div>
+          <!-- templates -->
+          <script id="categoryTemplate" type="text/x-jQuery-tmpl">
+            {{if !children || !children.length}}
+            <li class="nav-item current-category-selected" data-id="${id}">
+                  <a class="nav-link text-break" href="postInCategory.html?id=${id}">${name}</a>
             </li>
+            {{else}}
+            <li class="nav-item dropdown parent-category-selected" data-id="${id}">
+                <a class="nav-link dropdown-toggle" href="postInCategory.html?id=${id}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  ${name}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {{each(index, value) children}}
+                  <a class="dropdown-item current-category-selected" data-id="${value.id}" href="postInCategory.html?id=${value.id}">${value.name}</a>
+                  {{/each}}
+                </div>
+              </li>
+              {{/if}}
                 </script>
-        <!-- templates -->
-    </nav>
-    <!-- END NAVBAR -->
+          <!-- templates -->
+        </nav>
+        <!-- END NAVBAR -->
     <!-- MAIN -->
-    <div class="container mt-1 shadow p-3 bg-white rounded" style="min-height:600px;">
+    <div class="container mt-4 shadow p-3 bg-white rounded" style="min-height:600px;">
         <!-- <div class="my-4">
             <h1>Welcome to IT Blog</h1>
         </div> -->
@@ -112,6 +134,11 @@
                 </div>
             </div>
         </div>
+        {{if attach && attach.name }}
+        <p class="cart-text py-3">
+            <i class="fa fa-file-archive-o"></i> Attach: <a href="#" class="download-attach">${attach.name} ${attach.size} byte(s)</a>
+        </p>
+        {{/if}}
         <div class="row pt-3 mt-3">
             <div class="col-sm-3">
                 {{if preId }}
@@ -135,11 +162,6 @@
                     </ul>
                 </nav>-->
             </div>
-            {{if attach && attach.name }}
-            <p class="cart-text">
-                <i class="fa fa-file-archive-o"></i> Attach: <a href="#" class="download-attach">${attach.name} ${attach.size} byte(s)</a>
-            </p>
-            {{/if}}
             <div class="col-sm-3 text-right">
                 {{if nextId }}
                 <a href="postDetail.html?id=${nextId}" class="btn btn-light btn-lg">NEXT <i class="fa fa-long-arrow-right"></i></a>
@@ -151,14 +173,58 @@
     <!-- END TEAMPLATE -->
     <!-- MAIN -->
     <!-- FOOTER -->
+    <!-- <footer class="p-3 shadow-sm bg-white rounded mt-1">
+    &copy; 2019
+  </footer> -->
     <footer class="p-3 shadow-sm bg-white rounded mt-1">
-        &copy; 2019
+        <div class="container-fluid pt-4 pb-2">
+            <div class="row justify-content-md-between">
+                <div class="col-md-8 row category-container" data-template="#footCategoryTemplate"></div>
+                <div class="col-sm-12 col-md-4">
+                    <h3 class="h5">Recent Posts</h3>
+                    <ul class="list-group list-group-flush">
+                        <li class="recent-posts list-group-item" data-template="#footRecentPostTemplate" data-page="3">
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <p class="small">© HCI Final</p>
+        </div>
     </footer>
+    <script id="footRecentPostTemplate" type="text/x-jQuery-tmpl">
+        <li class="media mb-4">
+          <a href="postDetail.html?id=${id}">
+            <img src="${image}" class="mr-3 img-thumbnail img-fluid" alt="${title}" style="max-height:80px;max-width:100px;"/>
+          </a>
+            <div class="media-body">
+              <span class="mt-0 mb-1">
+          <a href="postDetail.html?id=${id}">
+            ${title}
+          </a>
+        </span><br/><small class="text-muted">${createdAt}</small>
+            </div>
+          </li>
+      </script>
+    <script id="footCategoryTemplate" type="text/x-jQuery-tmpl">
+        <div class="col-6 col-md-4 mb-4">
+            <h4 class="h5 ml-4">
+              <!-- <a href="postInCategory.html?id=${id}"> -->
+                ${name}
+              <!-- </a> -->
+            </h4>
+            <ul class="list-group list-group-flush">
+                {{each(i, value) children}}
+                <li class="list-group-item"><a href="postInCategory.html?id=${value.id}">${value.name}</a></li>
+              {{/each}}
+              </ul>
+          </div>
+      </script>
     <!-- END FOOTER -->
     <!-- build:js scripts/vendor.js -->
-    <script type="text/javascript" src="scripts/jquery.min.js"></script>
-    <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
-    <script type="text/javascript" src="scripts/moment.min.js"></script>
+  <script type="text/javascript" src="scripts/jquery.min.js"></script>
+  <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
+  <script type="text/javascript" src="scripts/moment.min.js"></script>
     <!-- endbuild -->
     <script src="scripts/globals.js"></script>
     <script>

@@ -3,8 +3,13 @@
 (function ($, rep, nav, per, RESOURCES, ACTIONS, commonService) {
     const $postList = $('#post-list');
 
+    const urlParams = new URLSearchParams(window.location.search);
+    let keywords = urlParams.get('kw');
+    if (!keywords) nav.toHome();
+
     $(function () {
-        fillPostList();
+        $('.keywords-value').text(keywords);
+        fillPostList(keywords);
     });
 
     //post
@@ -13,7 +18,7 @@
         const $postTemplate = $($postList.data('template'));
         let posts = rep.getEntities(rep.keys.post) || [];
         posts = $.grep(posts, function (item) {
-            return item.mode && item.mode.toLowerCase() == 'public' && item.showOnHomepage;
+            return item.mode && item.mode.toLowerCase() == 'public' && locdau(item.name).indexOf(keywords) >= 0;
         });
         if (!posts.length) {
             commonService.alertMessage('Post data is empty', true);

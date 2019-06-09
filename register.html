@@ -1,13 +1,12 @@
 <!doctype html>
-<html lang="">
+<html lang="en-US">
 
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="">
+  <meta name="description" content="IT Blog Post">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>IT Blog</title>
+  <title>Register</title>
   <base href="/HciFinal/">
-  <!-- Place favicon.ico in the root directory -->
   <!-- build:css styles/main.css -->
   <link rel="stylesheet" href="styles/bootstrap.min.css">
   <link rel="stylesheet" href="styles/css/font-awesome.min.css">
@@ -15,7 +14,8 @@
   <!-- endbuild -->
 </head>
 
-<body class="pt-5" id="top-most">
+<body class="pt-5">
+
   <a href="#" id="back-to-top" title="Back to top">&uarr;</a>
   <!-- NAVBAR -->
   <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary shadow-sm p-3 rounded">
@@ -34,13 +34,14 @@
         </li>
       </ul>
       <form class="form-inline my-2 mr-sm-3" id="form-search">
-          <div class="input-group">
-              <input class="form-control form-control-sm" name="keywords" type="text" placeholder="Search" aria-label="Search">
-              <div class="input-group-append">
-                  <button class="btn btn-success btn-sm" type="submit"><i class="fa fa-search"></i></button>
-                </div>
-            </div>
-          </form>
+        <div class="input-group">
+          <input class="form-control form-control-sm" name="keywords" type="text" placeholder="Search"
+            aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-success btn-sm" type="submit"><i class="fa fa-search"></i></button>
+          </div>
+        </div>
+      </form>
       <ul class="navbar-nav d-none" id="user-info">
         <li class="d-none d-md-inline">
           <span>
@@ -55,7 +56,7 @@
         </li>
       </ul>
       <ul class="navbar-nav" id="user-login">
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link" href="register.html"><i class="fa fa-user d-none d-md-inline"> </i>Register</i></a>
           </li>
         <li class="nav-item">
@@ -85,93 +86,64 @@
     <!-- templates -->
   </nav>
   <!-- END NAVBAR -->
-  <!-- MAIN -->
-  <div class="container-fluid shadow-sm p-3 bg-white rounded mt-4" style="min-height:600px;">
-    <div class="row">
-      <!-- LEFT -->
-      <div class="col-md-9">
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-          <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-          </ol>
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img src="images/1.jpg" class="d-block w-100" alt="...">
+  <div class="container shadow p-3 my-5 bg-white rounded">
+    <!--[if IE]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <div class="my-4 text-center">
+      <h1>Register</h1>
+      <hr />
+    </div>
+    <div class="row my-5">
+      <div class="col-lg-10 offset-lg-1">
+        <div>
+          <div>
+            <div class="alert alert-warning d-none" id="alert-message">
             </div>
-            <div class="carousel-item">
-              <img src="images/2.jpg" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-              <img src="images/3.jpg" class="d-block w-100" alt="...">
-            </div>
-          </div>
-          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </a>
-        </div>
-        <div class="my-4">
-          <h2 class="h3">Featured Posts</h1>
-            <hr />
-        </div>
-        <div class="alert alert-info alert-dismissible d-none text-break" id="alertMessage" role="alert">
-          <span class="content"></span>
-          <button type="button" class="close" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="row" id="post-list" data-template="#postTemplate"></div>
-      </div>
-      <!-- templates -->
-      <script id="postTemplate" type="text/x-jQuery-tmpl">
-                <div class="col-md-6 my-3">
-                    <div class="card bg-light text-light">
-                        <a href="postDetail.html?id=${id}">
-                      <img src="${image}" class="card-img" alt="${title}" style="height:280px">
-                        </a>
-                      <div class="card-img-overlay p-2" style="top:inherit;opacity:0.6;min-height:110px;background-color:#093b6f">
-                          <div class="mb-2">
-                              <span class="badge badge-primary">${category.name}</span>
-                              <small class="float-right pt-1" style="color:#90a8bd">${createdAt}</small>
-                              <div class="clearfix"></div>
-                            </div>
-                        <h5 class="card-title">
-                            <a href="postDetail.html?id=${id}" class="stretched-link text-white">${title}</a></h5>
-                        <a class="stretched-link" href="postDetail.html?id=${id}"></a>
-                      </div>
-                    </div>
+            <form novalidate id="register-form">
+              <div>
+                <div class="alert alert-danger text-danger d-none" id="alert-message"></div>
+                <div class="form-group">
+                  <label for="add-fullname">Full Name (*):</label>
+                  <div>
+                    <input type="text" name="fullname" class="form-control" id="add-fullname" data-val="true"
+                      placeholder="Enter full name"
+                      data-val-required="Full name is required" data-val-maxlength="Full-name's max length is 100"
+                      data-val-maxlength-max="100" />
+                    <small class="form-text text-danger" data-valmsg-for="fullname" data-valmsg-replace="true"></small>
                   </div>
-          </script>
-      <!-- templates -->
-      <!-- END LEFT -->
-
-      <!-- RIGHT -->
-      <div class="col-md-3">
-        <!-- templates -->
-        <script id="recentPostTemplate" type="text/x-jQuery-tmpl">
-            <li class="list-group-item text-break">
-              <a href="postDetail.html?id=${id}">
-                ${title}
-              </a>
-            </li>
-            </script>
-        <!-- templates -->
-        <ul class="list-group list-group-flush recent-posts" id="recent-post-list" data-template="#recentPostTemplate">
-          <li class="list-group-item" style="border-top:none;">
-            <h2 class="h5"><a href="recentPosts.html" class="text-decoration-none text-dark">RECENT POSTS</a></h5>
-          </li>
-        </ul>
-        <!-- END RIGHT -->
+                </div>
+                <div class="form-group">
+                  <label for="add-email">Email (*):</label>
+                  <div>
+                    <input type="email" name="email" class="form-control" id="add-email" data-val="true"
+                    placeholder="Enter email"
+                      data-val-required="Email is required" data-val-email="Email is invalid" />
+                    <small class="form-text text-danger" data-valmsg-for="email" data-valmsg-replace="true"></small>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="add-password">Password (*):</label>
+                  <div>
+                    <input type="password" name="password" class="form-control" id="add-password" data-val="true"
+                    placeholder="Enter password"
+                      data-val-required="Password is required" data-val-minlength="Password's min length is 6"
+                      data-val-minlength-min="6" data-val-maxlength="Password's max length is 200"
+                      data-val-maxlength-max="200" />
+                    <small class="form-text text-danger" data-valmsg-for="password" data-valmsg-replace="true"></small>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <button type="submit" id="register-submit" class="btn btn-primary">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <!-- MAIN -->
+  <!-- END FOOTER -->
   <!-- FOOTER -->
   <!-- <footer class="p-3 shadow-sm bg-white rounded mt-1">
     &copy; 2019
@@ -224,20 +196,25 @@
   <script type="text/javascript" src="scripts/jquery.min.js"></script>
   <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
   <script type="text/javascript" src="scripts/moment.min.js"></script>
+    <script type="text/javascript" src="scripts/jquery.validate.min.js"></script>
+    <script type="text/javascript"
+        src="scripts/jquery.validate.unobtrusive.min.js"></script>
   <!-- endbuild -->
+  <!-- build:js scripts/main.js -->
   <script src="scripts/globals.js"></script>
   <script>
     const __config__ = new DefaultConfig();
   </script>
+
   <script src="scripts/lib/jQuery.tmpl.js"></script>
-  <script src="scripts/lib/NavigationService.js"></script>
-  <script src="scripts/lib/CommonService.js"></script>
+  <script src="../scripts/lib/NavigationService.js"></script>
+  <script src="../scripts/lib/CommonService.js"></script>
   <script src="scripts/lib/Repository.js"></script>
   <script src="scripts/lib/UserService.js"></script>
   <script src="scripts/lib/PermissionService.js"></script>
   <script src="scripts/lib/AuthService.js"></script>
   <script src="scripts/main.js"></script>
-  <script src="scripts/pages/index.js"></script>
+  <script src="scripts/pages/register.js"></script>
   <!-- endbuild -->
 </body>
 

@@ -387,6 +387,7 @@
     }
 
     function getRenderItem(item, index) {
+        const category = rep.getEntityById(rep.keys.category, item.category ? item.category.id : 0);
         return {
             index: index + 1,
             title: item.name,
@@ -396,8 +397,8 @@
             onHomepage: item.showOnHomepage,
             isFeature: item.isFeature,
             category: {
-                name: item.category && item.category.name ? item.category.name : '',
-                id: item.category ? item.category.id : 0
+                name: category && category.name ? category.name : '',
+                id: category ? category.id : 0
             },
             content: item.content,
             createdAt: moment(new Date(item.createdOn)).format('D MMM YYYY')
