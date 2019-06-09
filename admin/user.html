@@ -51,7 +51,8 @@
                     <a class="nav-link" href="#" id="currentUserEmail"></a>
                 </li>
                 <li>
-                    <a class="nav-link" href="#" id="logout">Logout <i class="fa fa-sign-out d-none d-md-inline"></i></a>
+                    <a class="nav-link" href="#" id="logout">Logout <i
+                            class="fa fa-sign-out d-none d-md-inline"></i></a>
                 </li>
             </ul>
         </div>
@@ -96,8 +97,10 @@
                             <div class="form-group row">
                                 <label for="add-fullname" class="col-sm-4 col-form-label">Full Name (*):</label>
                                 <div class="col-sm-8">
-                                    <input type="text" name="fullname" class="form-control" id="add-fullname" data-val="true"
-                                        data-val-required="Full name is required" data-val-maxlength="Full-name's max length is 100" data-val-maxlength-max="100" />
+                                    <input type="text" name="fullname" class="form-control" id="add-fullname"
+                                        data-val="true" data-val-required="Full name is required"
+                                        data-val-maxlength="Full-name's max length is 100"
+                                        data-val-maxlength-max="100" />
                                     <small class="form-text text-danger" data-valmsg-for="fullname"
                                         data-valmsg-replace="true"></small>
                                 </div>
@@ -164,8 +167,10 @@
                             <div class="form-group row">
                                 <label for="edit-fullname" class="col-sm-4 col-form-label">Full Name (*):</label>
                                 <div class="col-sm-8">
-                                    <input type="text" name="fullname" class="form-control" id="edit-fullname" data-val="true"
-                                        data-val-required="Full name is required" data-val-maxlength="Full-name's max length is 100" data-val-maxlength-max="100" />
+                                    <input type="text" name="fullname" class="form-control" id="edit-fullname"
+                                        data-val="true" data-val-required="Full name is required"
+                                        data-val-maxlength="Full-name's max length is 100"
+                                        data-val-maxlength-max="100" />
                                     <small class="form-text text-danger" data-valmsg-for="fullname"
                                         data-valmsg-replace="true"></small>
                                 </div>
@@ -173,8 +178,9 @@
                             <div class="form-group row">
                                 <label for="edit-email" class="col-sm-4 col-form-label">Email (*):</label>
                                 <div class="col-sm-8">
-                                    <input type="email" name="email" class="form-control" id="edit-email" data-val="true"
-                                        data-val-required="Email is required" data-val-email="Email is invalid" />
+                                    <input type="email" name="email" class="form-control" id="edit-email"
+                                        data-val="true" data-val-required="Email is required"
+                                        data-val-email="Email is invalid" />
                                     <small class="form-text text-danger" data-valmsg-for="email"
                                         data-valmsg-replace="true"></small>
                                 </div>
@@ -206,7 +212,8 @@
                         <div class="modal-footer d-block">
                             <div class="row">
                                 <div class="col-6">
-                                    <button type="submit" class="btn btn-primary" id="editFormSubmit">Save changes</button></div>
+                                    <button type="submit" class="btn btn-primary" id="editFormSubmit">Save
+                                        changes</button></div>
                                 <div class="col-6 text-right">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                 </div>
@@ -319,7 +326,7 @@
     <!-- build:js scripts/main.js -->
     <script src="../scripts/globals.js"></script>
     <script>
-        const __config__ = new AdminForResourceActionConfig(ACTIONS.READ, RESOURCES.USER);
+            const __config__ = new PermissionAuthorizeResourceConfig(RESOURCES.USER, ACTIONS.READ);
     </script>
     <script src="../scripts/lib/jQuery.tmpl.js"></script>
     <script src="../scripts/lib/NavigationService.js"></script>
