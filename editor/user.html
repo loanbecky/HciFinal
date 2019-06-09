@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="IT Blog Post">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User</title>
+    <base href="/HciFinal/admin/">
+    <!-- build:css styles/main.css -->
+    <link rel="stylesheet" href="../styles/bootstrap.min.css">
+    <link rel="stylesheet" href="../styles/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <!-- endbuild -->
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+        <a class="navbar-brand" href="index.html">IT BLOGS</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="post.html">Post</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="user.html">User</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="category.html">Category</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="role.html">Role</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="permission.html">Permission</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav d-none" id="user-info">
+                <li class="d-none d-md-inline">
+                    <span>
+                        <img id="currentUserImage" src="../images/currentuser.png" class="img-fluid"
+                            style="height: 30px" />
+                    </span>
+                </li>
+                <li>
+                    <a class="nav-link" href="#" id="currentUserEmail"></a>
+                </li>
+                <li>
+                    <a class="nav-link" href="#" id="logout">Logout <i
+                            class="fa fa-sign-out d-none d-md-inline"></i></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container shadow p-3 my-5 bg-white rounded">
+        <!--[if IE]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <!-- BREADCRUMB -->
+        <nav aria-label="breadcrumb" class="float-right">
+            <ol class="breadcrumb bg-white">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">User</li>
+            </ol>
+        </nav>
+
+        <div class="my-2">
+            <h1 class="h4">USER MANAGEMENT</h1>
+            <hr />
+        </div>
+        <div class="alert alert-success alert-dismissible d-none text-break" id="alertMessage" role="alert">
+            <span class="content"></span>
+            <button type="button" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <!-- MODALS -->
+        <!-- CREATE -->
+        <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-plus"></i> Add User</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form novalidate>
+                        <div class="modal-body">
+                            <div class="alert alert-danger text-danger d-none" id="addFormAlertMessage"></div>
+                            <div class="form-group row">
+                                <label for="add-fullname" class="col-sm-4 col-form-label">Full Name (*):</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="fullname" class="form-control" id="add-fullname"
+                                        data-val="true" data-val-required="Full name is required"
+                                        data-val-maxlength="Full-name's max length is 100"
+                                        data-val-maxlength-max="100" />
+                                    <small class="form-text text-danger" data-valmsg-for="fullname"
+                                        data-valmsg-replace="true"></small>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="add-email" class="col-sm-4 col-form-label">Email (*):</label>
+                                <div class="col-sm-8">
+                                    <input type="email" name="email" class="form-control" id="add-email" data-val="true"
+                                        data-val-required="Email is required" data-val-email="Email is invalid" />
+                                    <small class="form-text text-danger" data-valmsg-for="email"
+                                        data-valmsg-replace="true"></small>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="add-password" class="col-sm-4 col-form-label">Password (*):</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="password" class="form-control" id="add-password"
+                                        data-val="true" data-val-required="Password is required"
+                                        data-val-minlength="Password's min length is 6" data-val-minlength-min="6"
+                                        data-val-maxlength="Password's max length is 200"
+                                        data-val-maxlength-max="200" />
+                                    <small class="form-text text-danger" data-valmsg-for="password"
+                                        data-valmsg-replace="true"></small>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="add-role" class="col-sm-4 col-form-label">Role (*):</label>
+                                <div class="col-sm-8">
+                                    <select id="add-role" name="role" class="form-control roles" data-val="true"
+                                        data-val-required="Role is required">
+                                        <option selected value="">-- Select --</option>
+                                    </select>
+                                    <small class="form-text text-danger" data-valmsg-for="role"
+                                        data-valmsg-replace="true"></small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer d-block">
+                            <div class="row">
+                                <div class="col-6">
+                                    <button type="submit" class="btn btn-primary">Save changes</button></div>
+                                <div class="col-6 text-right">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- EDIT -->
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-edit"></i> Edit User</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form novalidate>
+                        <div class="modal-body">
+                            <div class="alert alert-danger text-danger d-none" id="editFormAlertMessage"></div>
+                            <div class="form-group row">
+                                <label for="edit-fullname" class="col-sm-4 col-form-label">Full Name (*):</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="fullname" class="form-control" id="edit-fullname"
+                                        data-val="true" data-val-required="Full name is required"
+                                        data-val-maxlength="Full-name's max length is 100"
+                                        data-val-maxlength-max="100" />
+                                    <small class="form-text text-danger" data-valmsg-for="fullname"
+                                        data-valmsg-replace="true"></small>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="edit-email" class="col-sm-4 col-form-label">Email (*):</label>
+                                <div class="col-sm-8">
+                                    <input type="email" name="email" class="form-control" id="edit-email"
+                                        data-val="true" data-val-required="Email is required"
+                                        data-val-email="Email is invalid" />
+                                    <small class="form-text text-danger" data-valmsg-for="email"
+                                        data-valmsg-replace="true"></small>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="edit-password" class="col-sm-4 col-form-label">Password (*):</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="password" class="form-control" id="edit-password"
+                                        data-val="true" data-val-required="Password is required"
+                                        data-val-minlength="Password's min length is 6" data-val-minlength-min="6"
+                                        data-val-maxlength="Password's max length is 200"
+                                        data-val-maxlength-max="200" />
+                                    <small class="form-text text-danger" data-valmsg-for="password"
+                                        data-valmsg-replace="true"></small>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="edit-role" class="col-sm-4 col-form-label">Role (*):</label>
+                                <div class="col-sm-8">
+                                    <select id="edit-role" name="role" class="form-control roles" data-val="true"
+                                        data-val-required="Role is required">
+                                        <option selected value="">-- Select --</option>
+                                    </select>
+                                    <small class="form-text text-danger" data-valmsg-for="role"
+                                        data-valmsg-replace="true"></small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer d-block">
+                            <div class="row">
+                                <div class="col-6">
+                                    <button type="submit" class="btn btn-primary" id="editFormSubmit">Save
+                                        changes</button></div>
+                                <div class="col-6 text-right">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- DELETE -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><i class="fa fa-trash"></i> Delete Post</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Do you want to delete this post permanently?</p>
+                    </div>
+                    <div class="modal-footer d-block">
+                        <div class="row">
+                            <div class="col-6">
+                                <button type="button" class="btn btn-primary" id="deleteBtn">Delete</button></div>
+                            <div class="col-6 text-right">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- MODALS -->
+        <!-- BLOG POST -->
+        <div class="row">
+            <div class="col-12">
+                <!-- TOOLBAR -->
+                <div>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#addModal" id="addBtn"><i
+                            class="fa fa-plus"></i> Add User</button>
+                    <small class="text-danger d-none" id="addBtnMessage">You don't have create permission</small>
+                </div>
+                <!-- TOOLBAR -->
+                <!-- LIST -->
+                <div class="my-3">
+                    <div class="table-responsive" id="user-list">
+                        <table class="table table-stripped">
+                            <thead>
+                                <tr>
+                                    <th class="text-right">No.</th>
+                                    <th>Full name</th>
+                                    <th>Email</th>
+                                    <th>Password</th>
+                                    <th>Role</th>
+                                    <th>Created At</th>
+                                    <th>Update At</th>
+                                    <th class="text-center">Tools</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- template -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- PAGER -->
+                    <div class="position-relative">
+                        <div class="d-none float-right" id="pager">
+                            <nav>
+                                <ul class="pagination">
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <!-- PAGER -->
+                </div>
+                <!-- LIST -->
+            </div>
+        </div>
+        <!-- BLOG POST -->
+    </div>
+
+    <!-- TEAMPLATES-->
+    <script id="userTemplate" type="text/x-jQuery-tmpl">
+        <tr>
+            <td class="text-right">${index}</td>
+            <td>${fullname}</td>
+            <td class="text-break" style="max-width:400px;">${email}</td>
+            <td class="text-break" style="max-width:300px;">${password}</td>
+            <td>${role}</td>
+            <td>${createdAt}</td>
+            <td>${updatedAt}</td>
+            <td class="text-center">
+                <div class="btn-group">
+                <a href="#" class="btn btn-light btn-sm edit-btn" data-id="${id}"><i class="fa fa-pencil"></i> Edit</a>
+                <a href="#" class="btn btn-light btn-sm delete-btn" data-id="${id}"><i class="fa fa-trash"></i> Delete</a>
+                </div>
+            </td>
+        </tr>
+    </script>
+    <!-- END TEMPLATES-->
+    <!-- build:js scripts/vendor.js -->
+    <script type="text/javascript" src="../scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="../scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../scripts/moment.min.js"></script>
+    <script type="text/javascript" src="../scripts/jquery.validate.min.js"></script>
+    <script type="text/javascript"
+        src="../scripts/jquery.validate.unobtrusive.min.js"></script>
+    <!-- endbuild -->
+    <!-- build:js scripts/main.js -->
+    <script src="../scripts/globals.js"></script>
+    <script>
+            const __config__ = new PermissionAuthorizeResourceConfig(RESOURCES.USER, ACTIONS.READ);
+    </script>
+    <script src="../scripts/lib/jQuery.tmpl.js"></script>
+    <script src="../scripts/lib/NavigationService.js"></script>
+    <script src="../scripts/lib/CommonService.js"></script>
+    <script src="../scripts/lib/Repository.js"></script>
+    <script src="../scripts/lib/UserService.js"></script>
+    <script src="../scripts/lib/PermissionService.js"></script>
+    <script src="../scripts/lib/AuthService.js"></script>
+    <script src="../scripts/main.js"></script>
+    <script src="../scripts/pages/admin.user.js"></script>
+    <!-- endbuild -->
+</body>
+
+</html>

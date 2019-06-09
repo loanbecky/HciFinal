@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="IT Blog Post">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>IT Blogs - Permission</title>
+    <base href="/HciFinal/admin/">
+    <!-- build:css styles/main.css -->
+    <link rel="stylesheet" href="../styles/bootstrap.min.css">
+    <link rel="stylesheet" href="../styles/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <!-- endbuild -->
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+        <a class="navbar-brand" href="index.html">IT BLOGS</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="post.html">Post</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="user.html">User</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="category.html">Category</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="role.html">Role</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="permission.html">Permission</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav d-none" id="user-info">
+                <li class="d-none d-md-inline">
+                    <span>
+                        <img id="currentUserImage" src="../images/currentuser.png" class="img-fluid"
+                            style="height: 30px" />
+                    </span>
+                </li>
+                <li>
+                    <a class="nav-link" href="#" id="currentUserEmail"></a>
+                </li>
+                <li>
+                    <a class="nav-link" href="#" id="logout">Logout <i class="fa fa-sign-out d-none d-md-inline"></i></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container shadow p-3 my-5 bg-white rounded" style="min-height: 400px">
+        <!--[if IE]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <!-- BREADCRUMB -->
+        <nav aria-label="breadcrumb" class="float-right">
+            <ol class="breadcrumb bg-white">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Permission</li>
+            </ol>
+        </nav>
+
+        <div class="my-2">
+            <h1 class="h4">PERMISSION</h1>
+            <hr />
+        </div>
+        <div class="alert alert-success alert-dismissible d-none text-break" id="alertMessage" role="alert">
+            <span class="content"></span>
+            <button type="button" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <!-- BLOG POST -->
+        <div class="row">
+            <div class="col-12">
+                <!-- TOOLBAR -->
+                <div>
+                    <div class="form-group row">
+                        <label for="content" class="col-sm-3 col-form-label">Choose Group:</label>
+                        <div class="col-sm-9">
+                            <select name="published" class="form-control" id="roleOptions">
+                                <option value="0">-- Select --</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- TOOLBAR -->
+                <!-- LIST -->
+                <div class="my-3">
+                    <div class="table-responsive d-none" id="role-permission-list">
+                        <table class="table table-stripped">
+                            <thead>
+                                <tr>
+                                    <th class="text-right">No.</th>
+                                    <th>Permission Action</th>
+                                    <th>Create</th>
+                                    <th>Update</th>
+                                    <th>Delete</th>
+                                    <th>Read</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- templates -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- LIST -->
+            </div>
+        </div>
+        <!-- BLOG POST -->
+    </div>
+
+    <!-- TEAMPLATES-->
+    <script id="rolePermissionTemplate" type="text/x-jQuery-tmpl">
+        <tr>
+            <td class="text-right">${index}</td>
+            <td>
+                ${name}
+            </td>
+            <td>
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input create-permission grant-permission" id="create-${random}" data-id="${id}" data-permission="${pId}"/>
+                    <label class="custom-control-label" for="create-${random}">Off</label>
+                </div>
+            </td>
+            <td>
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input update-permission grant-permission" id="update-${random}" data-id="${id}" data-permission="${pId}"/>
+                    <label class="custom-control-label" for="update-${random}">Off</label>
+                </div>
+            </td>
+            <td>
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input delete-permission grant-permission" id="delete-${random}" data-id="${id}" data-permission="${pId}"/>
+                    <label class="custom-control-label" for="delete-${random}">Off</label>
+                </div>
+            </td>
+            <td>
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input read-permission grant-permission" id="read-${random}" data-id="${id}" data-permission="${pId}"/>
+                    <label class="custom-control-label" for="read-${random}">Off</label>
+                </div>
+            </td>
+        </tr>
+    </script>
+    <!-- END TEMPLATES-->
+
+    <!-- build:js scripts/vendor.js -->
+    <script type="text/javascript" src="../scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="../scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../scripts/moment.min.js"></script>
+    <script type="text/javascript" src="../scripts/jquery.validate.min.js"></script>
+    <script type="text/javascript"
+        src="../scripts/jquery.validate.unobtrusive.min.js"></script>
+    <!-- endbuild -->
+    <!-- build:js scripts/main.js -->
+    <script src="../scripts/globals.js"></script>
+    <script>
+            const __config__ = new PermissionAuthorizeResourceConfig(RESOURCES.PERMISSION, ACTIONS.READ);
+    </script>
+    <script src="../scripts/lib/jQuery.tmpl.js"></script>
+    <script src="../scripts/lib/NavigationService.js"></script>
+    <script src="../scripts/lib/CommonService.js"></script>
+    <script src="../scripts/lib/Repository.js"></script>
+    <script src="../scripts/lib/UserService.js"></script>
+    <script src="../scripts/lib/PermissionService.js"></script>
+    <script src="../scripts/lib/AuthService.js"></script>
+    <script src="../scripts/main.js"></script>
+    <script src="../scripts/pages/admin.permission.js"></script>
+    <!-- endbuild -->
+</body>
+
+</html>
